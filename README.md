@@ -1,59 +1,104 @@
-# AngularCheckoutChallenge
+# Angular Checkout Challenge
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.2.4.
+Aplicação frontend de checkout da Nexo, desenvolvida com Angular 22 e Tailwind CSS 4, como parte de um desafio técnico.
 
-## Development server
+O repositório está em desenvolvimento: a stack, as rotas e as telas abaixo descrevem o **alvo** do desafio, não o estado atual do scaffold.
 
-To start a local development server, run:
+## Objetivo
 
-```bash
-ng serve
-```
+Implementar uma experiência de checkout responsiva, com validação de formulários, métodos de pagamento simulados e telas de sucesso e erro.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Tecnologias
 
-## Code scaffolding
+- Angular 22
+- TypeScript
+- Tailwind CSS 4
+- Angular Router
+- Reactive Forms
+- Angular Signals
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Funcionalidades previstas
 
-```bash
-ng generate component component-name
-```
+- Checkout com cartão de crédito, cartão de débito e Pix.
+- Validação dos campos de pagamento.
+- Simulação determinística dos resultados de pagamento.
+- Telas de sucesso e erro.
+- Interface responsiva e acessível.
+- Navegação protegida contra acesso direto a resultados inválidos.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Produto
 
-```bash
-ng generate --help
-```
+**Nexo Pro**
 
-## Building
+- Plano mensal.
+- 1 usuário.
+- Valor: R$ 79,90.
 
-To build the project run:
+## Requisitos
 
-```bash
-ng build
-```
+- Node.js 20.19+ ou 22.12+.
+- npm.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Como executar
 
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+Instale as dependências:
 
 ```bash
-ng e2e
+npm install
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Inicie o servidor de desenvolvimento:
 
-## Additional Resources
+```bash
+npm start
+```
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Também é possível usar `npx ng serve`. Acesse `http://localhost:4200`.
+
+## Verificação de build
+
+Para verificar se a aplicação pode ser compilada para produção:
+
+```bash
+npm run build
+```
+
+Também é possível usar `npx ng build`.
+
+## Pagamentos simulados
+
+Esta aplicação é exclusivamente demonstrativa. Nenhuma transação financeira real é realizada.
+
+- **Cartão aprovado:** `4242 4242 4242 4242`
+- **Cartão recusado:** `4000 0000 0000 0002`
+- **Outros cartões:** resultado conforme as regras de validação e simulação definidas na especificação.
+- **Pix:** fluxo inteiramente simulado.
+
+Utilize apenas os dados fictícios fornecidos para demonstração. Não insira informações financeiras reais.
+
+## Documentação
+
+A documentação do projeto está disponível em [`docs/`](docs/):
+
+- [`specification.md`](docs/specification.md) — requisitos e critérios de conclusão.
+- [`architecture.md`](docs/architecture.md) — estrutura e organização técnica.
+- [`decisions.md`](docs/decisions.md) — decisões técnicas adotadas.
+- [`roadmap.md`](docs/roadmap.md) — marcos e etapas de desenvolvimento.
+
+As telas de referência para implementação pixel-perfect estão em [`public/design/`](public/design/).
+
+## Escopo e limitações
+
+- Não há integração com gateway de pagamento.
+- Não há backend, banco de dados ou autenticação.
+- Não há cobrança real nem persistência de dados financeiros.
+- Os dados exibidos nas telas de resultado são fictícios.
+- Não há testes automatizados unitários ou end-to-end.
+
+## Status
+
+Em desenvolvimento.
+
+## Licença
+
+Projeto desenvolvido para fins de avaliação técnica.
