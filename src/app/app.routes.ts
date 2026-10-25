@@ -18,12 +18,16 @@ export const routes: Routes = [
           {
             path: 'success',
             loadComponent: () =>
-              import('./features/checkout/checkout-success').then((m) => m.CheckoutSuccess),
+              import('./features/checkout/checkout-success/checkout-success').then(
+                (m) => m.CheckoutSuccess,
+              ),
           },
           {
             path: 'error',
             loadComponent: () =>
-              import('./features/checkout/checkout-error').then((m) => m.CheckoutError),
+              import('./features/checkout/checkout-error/checkout-error').then(
+                (m) => m.CheckoutError,
+              ),
           },
         ],
       },

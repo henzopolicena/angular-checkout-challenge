@@ -34,7 +34,7 @@
 **Status:** Concluído
 
 - [x] Definir estilos globais e tokens visuais em `src/styles.css`.
-- [x] Preencher o chrome já existente: header e footer no `Guest`, stepper no host `Checkout`, em pixel-perfect, sem duplicar nas telas.
+- [x] Preencher o chrome já existente: header e footer no `Guest` (`layout/guest/`), stepper no host `Checkout`, em pixel-perfect, sem duplicar nas telas.
 - [x] Estabelecer o layout responsivo do chrome compartilhado.
 - [x] Conferir pixel-perfect da estrutura compartilhada contra `public/design/`.
 
@@ -52,13 +52,13 @@
 
 ## Marco 4 — Checkout
 
-**Status:** Não iniciado
+**Status:** Concluído
 
-- [ ] Implementar seleção do meio de pagamento.
-- [ ] Implementar formulário de cartão e validações com Signal Forms.
-- [ ] Implementar fluxo Pix simulado.
-- [ ] Implementar resumo do pedido e estado de processamento no miolo de `/checkout`.
-- [ ] Conferir pixel-perfect do checkout, do Pix e da validação contra `public/design/`.
+- [x] Implementar seleção do meio de pagamento.
+- [x] Implementar formulário de cartão e validações com Signal Forms.
+- [x] Implementar fluxo Pix simulado.
+- [x] Implementar resumo do pedido e estado de processamento no miolo de `/checkout`.
+- [x] Conferir pixel-perfect do checkout, do Pix e da validação contra `public/design/`.
 
 **Conclusão:** os três meios de pagamento funcionam conforme o comportamento definido e o visual corresponde às telas de referência.
 
