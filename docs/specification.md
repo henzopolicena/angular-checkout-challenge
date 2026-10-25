@@ -14,7 +14,7 @@ O produto simulado é o **Nexo Pro**: plano mensal, 1 usuário, R$ 79,90.
 - Tailwind CSS 4.
 - TypeScript.
 - Angular Router.
-- Reactive Forms.
+- Signal Forms (`@angular/forms/signals`).
 - Signals para o estado compartilhado.
 
 Não utilizar NgRx, Bootstrap, bibliotecas externas de componentes ou gerenciamento de estado.
@@ -31,6 +31,8 @@ A implementação deve ser pixel-perfect contra as composições em `public/desi
 - [`public/design/payment-states.png`](../public/design/payment-states.png) — Pix, validação de campos e processamento.
 
 ## 4. Interface compartilhada
+
+Cabeçalho e rodapé existem uma vez no shell `Guest` (funil de conversão). O indicador de etapas existe uma vez no host do checkout. As três telas só renderizam o miolo. O stepper não é um mapa de rotas: Pedido não é tela; pagamento e erro usam o passo Pagamento; sucesso usa Confirmação. Não há layout autenticado: o checkout é um funil guest isolado.
 
 A interface deve incluir:
 
@@ -133,7 +135,7 @@ Nenhuma cobrança ou transação real será realizada.
 
 ## 8. Rotas e estado
 
-Utilizar as rotas:
+Utilizar as rotas, com o shell `Guest`, o host do checkout e filhos:
 
 - `/` redireciona para `/checkout`.
 - `/checkout`

@@ -14,7 +14,7 @@ Implementar uma experiência de checkout responsiva, com validação de formulá
 - TypeScript
 - Tailwind CSS 4
 - Angular Router
-- Reactive Forms
+- Signal Forms
 - Angular Signals
 
 ## Funcionalidades previstas

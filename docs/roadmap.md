@@ -20,12 +20,12 @@
 
 ## Marco 1 — Fundação do projeto
 
-**Status:** Em andamento
+**Status:** Concluído
 
 - [x] Criar o projeto Angular.
 - [x] Registrar a estrutura inicial em um commit.
-- [ ] Configurar Tailwind CSS 4.
-- [ ] Validar o ambiente e o build de produção.
+- [x] Configurar Tailwind CSS 4.
+- [x] Validar o ambiente e o build de produção.
 
 **Conclusão:** aplicação inicial executável, estilização configurada e build funcionando.
 
@@ -33,12 +33,12 @@
 
 **Status:** Não iniciado
 
-- [ ] Definir estilos globais e tokens visuais.
-- [ ] Implementar cabeçalho, indicador de etapas e rodapé.
-- [ ] Estabelecer o layout responsivo.
+- [ ] Definir estilos globais e tokens visuais em `src/styles.css`.
+- [ ] Preencher o chrome já existente: header e footer no `Guest`, stepper no host `Checkout`, em pixel-perfect, sem duplicar nas telas.
+- [ ] Estabelecer o layout responsivo do chrome compartilhado.
 - [ ] Conferir pixel-perfect da estrutura compartilhada contra `public/design/`.
 
-**Conclusão:** estrutura visual compartilhada implementada pixel-perfect contra as telas em `public/design/`.
+**Conclusão:** header e footer no funil guest e stepper no checkout, cada um uma vez, pixel-perfect contra as telas em `public/design/`.
 
 ## Marco 3 — Estado e simulação
 
@@ -55,9 +55,9 @@
 **Status:** Não iniciado
 
 - [ ] Implementar seleção do meio de pagamento.
-- [ ] Implementar formulário de cartão e validações.
+- [ ] Implementar formulário de cartão e validações com Signal Forms.
 - [ ] Implementar fluxo Pix simulado.
-- [ ] Implementar resumo do pedido e estado de processamento.
+- [ ] Implementar resumo do pedido e estado de processamento no miolo de `/checkout`.
 - [ ] Conferir pixel-perfect do checkout, do Pix e da validação contra `public/design/`.
 
 **Conclusão:** os três meios de pagamento funcionam conforme o comportamento definido e o visual corresponde às telas de referência.
@@ -66,10 +66,9 @@
 
 **Status:** Não iniciado
 
-- [ ] Implementar telas de sucesso e erro.
-- [ ] Configurar as rotas `/`, `/checkout`, `/checkout/success` e `/checkout/error`.
+- [ ] Implementar o miolo das telas de sucesso e erro.
 - [ ] Implementar nova tentativa e troca de meio.
-- [ ] Tratar acesso às rotas de resultado sem estado válido.
+- [ ] Tratar acesso aos filhos `success` e `error` sem estado válido (`CanActivate` / `CanMatch`).
 - [ ] Conferir pixel-perfect das telas de sucesso e erro contra `public/design/`.
 
 **Conclusão:** o fluxo completo funciona, não apresenta resultados sem uma tentativa válida e as telas de resultado correspondem à referência.

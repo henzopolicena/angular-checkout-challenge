@@ -2,7 +2,7 @@
 
 ## 1. Stack tecnológica
 
-Utilizar Angular 22 com componentes standalone, Angular Router, Reactive Forms, Signals e Tailwind CSS 4.
+Utilizar Angular 22 com componentes standalone, Angular Router, Signal Forms (`@angular/forms/signals`), Signals e Tailwind CSS 4.
 
 **Motivo:** utilizar ferramentas modernas do Angular sem adicionar complexidade desnecessária.
 
@@ -14,9 +14,9 @@ RxJS permanece como dependência do Angular. Não será usado como ferramenta de
 
 ## 2. Gerenciamento de estado
 
-Utilizar Signals por meio de um serviço dedicado chamado `CheckoutStateService`.
+Utilizar Signals por meio de um serviço dedicado chamado `CheckoutStateService` na feature `checkout/`, com o decorator `@Service` e `inject()` em vez de injeção por construtor.
 
-**Motivo:** o fluxo possui pouco estado compartilhado e não justifica uma biblioteca adicional.
+**Motivo:** o fluxo possui pouco estado compartilhado e não justifica uma biblioteca adicional. O Angular 22 recomenda `@Service` e `inject()` para serviços singleton.
 
 ## 3. Simulação de pagamento
 
@@ -43,17 +43,19 @@ O estado compartilhado pode guardar meio, bandeira, últimos 4 dígitos, valor, 
 
 **Motivo:** limitar a exposição de dados e manter o comportamento simples e previsível.
 
-## 5. Navegação
+## 5. Navegação e layout
 
 Utilizar as rotas `/`, `/checkout`, `/checkout/success` e `/checkout/error`. A rota `/` redireciona para `/checkout`.
 
-As rotas de resultado exigem um resultado válido em memória, verificado por `CanActivate` ou `CanMatch`. Sem ele, o usuário retorna ao checkout.
+O `Guest` é o único shell: funil de conversão (nexo, “Checkout seguro”, rodapé institucional), sem avatar, menu de conta ou sidebar. Header e footer ficam em `guest/components/`; uma área autenticada teria chrome próprio, sem reusar esses arquivos. O `Checkout` concentra o stepper. Pagamento, sucesso e erro são filhos lazy com `loadComponent`. O checkout não é o layout logado do produto; “Acessar meu espaço” no sucesso é destino futuro, não um envelope destas telas.
 
-O status `processing` é apresentado na própria `/checkout`. Não existe rota de processamento.
+As rotas de resultado exigem um resultado válido em memória, verificado por `CanActivate` ou `CanMatch` nos filhos `success` e `error`. Sem ele, o usuário retorna ao checkout.
+
+O status `processing` é apresentado no miolo de `/checkout`. Não existe rota de processamento.
 
 Não haverá SSR.
 
-**Motivo:** evitar a exibição de resultados sem uma tentativa correspondente e manter o fluxo alinhado às telas de referência.
+**Motivo:** não duplicar header, footer ou stepper entre as telas, evitar resultados sem uma tentativa correspondente e manter o fluxo alinhado às telas de referência.
 
 ## 6. Testes e qualidade
 
@@ -68,6 +70,8 @@ O scaffold do CLI ainda contém `npm test` e `tsconfig.spec.json`. Esses resídu
 ## 7. Interface e documentação
 
 A interface e a documentação serão escritas em português brasileiro. Identificadores, nomes de arquivos e código-fonte permanecerão em inglês. O HTML usará `lang="pt-BR"`.
+
+Os formulários de cartão usarão Signal Forms no Marco 4, não Reactive Forms.
 
 A referência visual são as composições em `public/design/`. A implementação deve ser pixel-perfect contra esses arquivos.
 
