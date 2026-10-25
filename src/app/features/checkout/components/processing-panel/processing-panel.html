@@ -1,0 +1,42 @@
+<section
+  class="mx-auto max-w-lg rounded-2xl border border-line bg-surface px-6 py-12 text-center shadow-sm md:px-10"
+  aria-live="polite"
+  aria-busy="true"
+>
+  <svg
+    lucideLoaderCircle
+    class="mx-auto size-10 animate-spin text-brand"
+    [size]="40"
+    aria-hidden="true"
+  ></svg>
+  <h1 class="mt-6 text-xl font-semibold text-ink">Processando seu pagamento</h1>
+  <p class="mt-2 text-sm text-muted">
+    Estamos aguardando a confirmação. Isso pode levar alguns segundos.
+  </p>
+
+  <dl class="mx-auto mt-8 max-w-sm space-y-3 border-t border-line pt-6 text-left text-sm">
+    <div class="flex items-center justify-between gap-4">
+      <dt class="text-muted">{{ catalog.name }}</dt>
+      <dd class="font-medium text-ink">{{ catalog.billing }}</dd>
+    </div>
+    <div class="flex items-center justify-between gap-4">
+      <dt class="text-muted">Meio usado</dt>
+      <dd class="font-medium text-ink">{{ methodCaption() }}</dd>
+    </div>
+    <div class="flex items-center justify-between gap-4">
+      <dt class="text-muted">Total</dt>
+      <dd class="text-base font-semibold text-ink">{{ total }}</dd>
+    </div>
+  </dl>
+
+  <p class="mt-8 flex items-start justify-center gap-2 text-sm text-brand">
+    <svg lucideLock class="mt-0.5 size-4 shrink-0" [size]="16" aria-hidden="true"></svg>
+    <span class="text-left">
+      <strong class="font-semibold">Aguarde a confirmação</strong>
+      <span class="mt-1 block text-xs text-muted">
+        Não feche esta página nem envie o pagamento novamente.
+      </span>
+    </span>
+  </p>
+  <p class="mt-6 text-xs text-muted">Estado de processamento simulado</p>
+</section>
