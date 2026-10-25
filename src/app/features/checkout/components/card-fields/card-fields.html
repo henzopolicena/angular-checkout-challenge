@@ -1,0 +1,104 @@
+<fieldset class="mt-5 border-0 p-0">
+  <legend class="text-base font-semibold text-ink">{{ title() }}</legend>
+
+  <div class="mt-4 space-y-4">
+    <div>
+      <div class="mb-1.5 flex items-center justify-between gap-3">
+        <label class="text-sm text-ink" for="card-number">Número do cartão</label>
+        @if (brandSrc(); as mark) {
+          <img [ngSrc]="mark" width="40" height="14" alt="" class="h-3.5 w-auto" />
+        }
+      </div>
+      <input
+        id="card-number"
+        class="h-11 w-full rounded-lg border border-line bg-surface px-3 text-sm text-ink outline-none data-[tone=invalid]:border-danger data-[tone=invalid]:bg-danger-soft data-[tone=invalid]:text-danger data-[tone=valid]:border-success"
+        type="text"
+        inputmode="numeric"
+        autocomplete="cc-number"
+        placeholder="Número do cartão"
+        [attr.data-tone]="tone('number')"
+        [attr.aria-invalid]="invalid('number')"
+        [attr.aria-describedby]="invalid('number') ? 'card-number-error' : null"
+        [formField]="cardForm().number"
+        (input)="mask('number')"
+      />
+      @if (invalid('number')) {
+        <p id="card-number-error" class="mt-1 text-xs text-danger" role="alert">
+          {{ message('number') }}
+        </p>
+      }
+    </div>
+
+    <div>
+      <label class="mb-1.5 block text-sm text-ink" for="card-holder">Nome no cartão</label>
+      <input
+        id="card-holder"
+        class="h-11 w-full rounded-lg border border-line bg-surface px-3 text-sm text-ink uppercase outline-none data-[tone=invalid]:border-danger data-[tone=invalid]:bg-danger-soft data-[tone=invalid]:text-danger data-[tone=valid]:border-success"
+        type="text"
+        autocomplete="cc-name"
+        placeholder="Nome completo"
+        [attr.data-tone]="tone('holder')"
+        [attr.aria-invalid]="invalid('holder')"
+        [attr.aria-describedby]="invalid('holder') ? 'card-holder-error' : null"
+        [formField]="cardForm().holder"
+      />
+      @if (invalid('holder')) {
+        <p id="card-holder-error" class="mt-1 text-xs text-danger" role="alert">
+          {{ message('holder') }}
+        </p>
+      }
+    </div>
+
+    <div class="grid grid-cols-2 gap-3">
+      <div>
+        <label class="mb-1.5 block text-sm text-ink" for="card-expiry">Validade</label>
+        <input
+          id="card-expiry"
+          class="h-11 w-full rounded-lg border border-line bg-surface px-3 text-sm text-ink outline-none data-[tone=invalid]:border-danger data-[tone=invalid]:bg-danger-soft data-[tone=invalid]:text-danger data-[tone=valid]:border-success"
+          type="text"
+          inputmode="numeric"
+          autocomplete="cc-exp"
+          placeholder="MM/AA"
+          [attr.data-tone]="tone('expiry')"
+          [attr.aria-invalid]="invalid('expiry')"
+          [attr.aria-describedby]="invalid('expiry') ? 'card-expiry-error' : null"
+          [formField]="cardForm().expiry"
+          (input)="mask('expiry')"
+        />
+        @if (invalid('expiry')) {
+          <p id="card-expiry-error" class="mt-1 text-xs text-danger" role="alert">
+            {{ message('expiry') }}
+          </p>
+        }
+      </div>
+      <div>
+        <label class="mb-1.5 block text-sm text-ink" for="card-cvv">CVV</label>
+        <input
+          id="card-cvv"
+          class="h-11 w-full rounded-lg border border-line bg-surface px-3 text-sm text-ink outline-none data-[tone=invalid]:border-danger data-[tone=invalid]:bg-danger-soft data-[tone=invalid]:text-danger data-[tone=valid]:border-success"
+          type="password"
+          inputmode="numeric"
+          autocomplete="cc-csc"
+          placeholder="CVV"
+          [attr.data-tone]="tone('cvv')"
+          [attr.aria-invalid]="invalid('cvv')"
+          [attr.aria-describedby]="invalid('cvv') ? 'card-cvv-error' : null"
+          [formField]="cardForm().cvv"
+          (input)="mask('cvv')"
+        />
+        @if (invalid('cvv')) {
+          <p id="card-cvv-error" class="mt-1 text-xs text-danger" role="alert">
+            {{ message('cvv') }}
+          </p>
+        }
+      </div>
+    </div>
+  </div>
+
+  @if (cardForm()().valid()) {
+    <p class="mt-4 flex items-center gap-2 text-sm font-medium text-success">
+      <svg lucideCheck [size]="16" [strokeWidth]="3" aria-hidden="true"></svg>
+      Dados do cartão preenchidos
+    </p>
+  }
+</fieldset>
