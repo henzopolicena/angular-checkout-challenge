@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
 
+import { checkoutResultGuard } from '@core/guards/checkout-result.guard';
+
 export const routes: Routes = [
   {
     path: '',
@@ -17,6 +19,7 @@ export const routes: Routes = [
           },
           {
             path: 'success',
+            canActivate: [checkoutResultGuard('success')],
             loadComponent: () =>
               import('./features/checkout/checkout-success/checkout-success').then(
                 (m) => m.CheckoutSuccess,
@@ -24,6 +27,7 @@ export const routes: Routes = [
           },
           {
             path: 'error',
+            canActivate: [checkoutResultGuard('error')],
             loadComponent: () =>
               import('./features/checkout/checkout-error/checkout-error').then(
                 (m) => m.CheckoutError,

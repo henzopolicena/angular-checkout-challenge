@@ -12,7 +12,7 @@ const CARD_DECLINED_REASON = 'Cartão não autorizado';
 
 const initialSnapshot: CheckoutSnapshot = {
   status: 'idle',
-  method: null,
+  method: 'credit',
   brand: null,
   last4: null,
   errorReason: null,
@@ -29,10 +29,6 @@ export class CheckoutStore {
 
   readonly snapshot = this.state.asReadonly();
   readonly isProcessing = computed(() => this.state().status === 'processing');
-  readonly hasResult = computed(() => {
-    const status = this.state().status;
-    return status === 'success' || status === 'error';
-  });
 
   selectMethod(method: PaymentMethod): void {
     if (this.state().status !== 'idle') {

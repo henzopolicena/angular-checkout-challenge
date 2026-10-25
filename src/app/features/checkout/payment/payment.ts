@@ -57,12 +57,6 @@ export class Payment {
     return root.invalid() && (root.touched() || root.dirty());
   });
 
-  constructor() {
-    if (this.store.snapshot().method === null) {
-      this.store.selectMethod('credit');
-    }
-  }
-
   protected onSelectMethod(method: PaymentMethod): void {
     this.store.selectMethod(method);
   }
