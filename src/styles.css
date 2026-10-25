@@ -12,9 +12,12 @@
   --color-line: #e8e9f2;
   --color-success: #22c17a;
   --color-success-soft: #e8f8f0;
+  --color-danger: #e5484d;
+  --color-danger-soft: #fdecee;
 
   --radius-mark: 0.625rem;
   --max-width-shell: 70rem;
+  --max-width-chrome: 76rem;
 }
 
 @layer base {

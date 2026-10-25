@@ -1,18 +1,14 @@
-<nav class="px-5 pt-6 md:px-8 md:pt-8" aria-label="Etapas do checkout">
-  <div class="relative mx-auto max-w-[36rem] md:max-w-[40rem]">
-    <div
-      class="pointer-events-none absolute top-3 right-[16%] left-[16%] h-px bg-line md:top-3.5"
-      aria-hidden="true"
-    ></div>
-    <ol class="relative z-10 flex items-start justify-between">
+<nav class="pt-6 md:pt-8" aria-label="Etapas do checkout">
+  <div class="mx-auto w-full max-w-shell px-5 md:px-8">
+    <ol class="flex items-center">
       @for (item of steps; track item.id; let index = $index) {
         <li
-          class="flex flex-1 flex-col items-center gap-2"
+          class="flex items-center gap-2 not-last:flex-1 not-last:after:mx-3 not-last:after:h-px not-last:after:min-w-4 not-last:after:flex-1 not-last:after:bg-line not-last:after:content-['']"
           [attr.aria-current]="statusOf(item.id) === 'current' ? 'step' : null"
           [attr.aria-label]="stepLabel(item.label, item.id)"
         >
           <span
-            class="flex size-6 items-center justify-center rounded-full text-[0.65rem] font-semibold md:size-7 md:text-xs"
+            class="flex size-6 shrink-0 items-center justify-center rounded-full text-[0.65rem] font-semibold md:size-7 md:text-xs"
             [class.bg-success]="statusOf(item.id) === 'completed'"
             [class.text-surface]="statusOf(item.id) === 'completed' || statusOf(item.id) === 'current'"
             [class.bg-brand]="statusOf(item.id) === 'current'"
@@ -29,7 +25,7 @@
             }
           </span>
           <span
-            class="text-[0.7rem] font-medium md:text-sm"
+            class="whitespace-nowrap text-[0.7rem] font-medium md:text-sm"
             [class.text-brand]="statusOf(item.id) === 'current'"
             [class.text-muted]="statusOf(item.id) !== 'current'"
             aria-hidden="true"
