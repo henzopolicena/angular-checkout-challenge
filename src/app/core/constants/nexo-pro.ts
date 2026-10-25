@@ -6,4 +6,9 @@ export const NEXO_PRO = {
   orderId: '#NX-10482',
   receiptEmail: 'marina.almeida@exemplo.com',
   pixCopyPaste: '000201.NEXO-PRO.7990.DEMO',
+  benefits: [
+    'Projetos e tarefas ilimitados',
+    'Relatórios e automações',
+    'Suporte prioritário',
+  ],
 } as const;
