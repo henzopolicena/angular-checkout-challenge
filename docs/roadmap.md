@@ -42,11 +42,11 @@
 
 ## Marco 3 — Estado e simulação
 
-**Status:** Não iniciado
+**Status:** Concluído
 
-- [ ] Implementar os modelos e o serviço de estado.
-- [ ] Implementar a simulação determinística de pagamentos.
-- [ ] Controlar processamento, resultados e novas tentativas.
+- [x] Implementar os modelos e o serviço de estado.
+- [x] Implementar a simulação determinística de pagamentos.
+- [x] Controlar processamento, resultados e novas tentativas.
 
 **Conclusão:** estado consistente e resultados de pagamento conforme a especificação.
 

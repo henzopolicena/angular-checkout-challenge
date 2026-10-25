@@ -22,9 +22,11 @@ RxJS permanece como dependência do Angular. Não será usado como ferramenta de
 
 ## 2. Gerenciamento de estado
 
-Utilizar Signals por meio de um serviço dedicado chamado `CheckoutStateService` na feature `checkout/`, com o decorator `@Service` e `inject()` em vez de injeção por construtor.
+Utilizar Signals por meio do `CheckoutStore` em `features/checkout/` (`checkout-store.ts`), com o decorator `@Service()` e `inject()` em vez de injeção por construtor. O nome segue o padrão Angular 22 (`CartStore`), sem sufixo `Service`.
 
-**Motivo:** o fluxo possui pouco estado compartilhado e não justifica uma biblioteca adicional. O Angular 22 recomenda `@Service` e `inject()` para serviços singleton.
+Não usar `resource()`, `httpResource` nem `rxResource` para o pagamento: resource é leitura reativa; pagar é um comando com status próprio (`idle | processing | success | error`).
+
+**Motivo:** o fluxo possui pouco estado compartilhado e não justifica uma biblioteca adicional. O Angular 22 recomenda `@Service()` e `inject()` para singletons.
 
 ## 3. Simulação de pagamento
 
@@ -35,7 +37,7 @@ Implementar os pagamentos exclusivamente no frontend, com resultados determinís
 - Outros cartões válidos de bandeiras suportadas: aprovados.
 - Pix: aprovado após a confirmação explícita do usuário.
 
-O atraso de aproximadamente 1.200 ms será implementado no `PaymentSimulatorService` com `Promise` e `setTimeout`.
+O atraso de aproximadamente 1.200 ms será implementado no `PaymentSimulator` com `Promise` e `setTimeout`.
 
 Crédito e débito compartilham as mesmas regras e os mesmos cartões de teste.
 
@@ -55,7 +57,7 @@ O estado compartilhado pode guardar meio, bandeira, últimos 4 dígitos, valor, 
 
 Utilizar as rotas `/`, `/checkout`, `/checkout/success` e `/checkout/error`. A rota `/` redireciona para `/checkout`.
 
-O `Guest` é o único shell: funil de conversão (nexo, “Checkout seguro”, rodapé institucional), sem avatar, menu de conta ou sidebar. Header e footer ficam em `guest/components/`; uma área autenticada teria chrome próprio, sem reusar esses arquivos. O `Checkout` concentra o stepper. Pagamento, sucesso e erro são filhos lazy com `loadComponent`. O checkout não é o layout logado do produto; “Acessar meu espaço” no sucesso é destino futuro, não um envelope destas telas.
+O `Guest` é o único shell: funil de conversão (nexo, “Checkout seguro”, rodapé institucional), sem avatar, menu de conta ou sidebar. Header e footer ficam em `features/guest/components/`; uma área autenticada teria chrome próprio, sem reusar esses arquivos. O `Checkout` concentra o stepper. Pagamento, sucesso e erro são filhos lazy com `loadComponent`. O checkout não é o layout logado do produto; “Acessar meu espaço” no sucesso é destino futuro, não um envelope destas telas.
 
 As rotas de resultado exigem um resultado válido em memória, verificado por `CanActivate` ou `CanMatch` nos filhos `success` e `error`. Sem ele, o usuário retorna ao checkout.
 
@@ -92,3 +94,31 @@ Os rótulos do rodapé e “Fale com a gente” não navegam para páginas reais
 O ambiente de execução previsto é Node.js 20.19+ ou 22.12+, com npm.
 
 **Motivo:** manter a experiência adequada ao público brasileiro, o código alinhado às convenções técnicas e o visual fiel às telas de referência.
+
+## 8. Qualidade de código
+
+Seguir, nesta ordem: [boas práticas e style guide do Angular 22](https://angular.dev/style-guide); clean code proporcional ao desafio; SOLID aplicado, não ritual.
+
+O Angular 22 é a referência local: componentes standalone, Signals, `@Service()` com `inject()`, um conceito por arquivo e componentes de apresentação.
+
+Clean code neste funil: identificadores em inglês, interface em pt-BR, funções pequenas, TypeScript strict, sem `any`, Prettier, sem comentário que só repete o código.
+
+SOLID aplicado a este checkout:
+
+- **S** — uma razão para mudar: `Guest` é o chrome; `Checkout` é o stepper e o outlet; o miolo é a tela; `CheckoutStore` é o estado; `PaymentSimulator` é o atraso e a regra do cartão.
+- **O** — meio novo entra nos tipos e no store, não em `if` no template. Sem hierarquia de strategy: só três meios conhecidos.
+- **L** — composição com `inject()`, sem herança de serviços.
+- **I** — cada classe só conhece o que usa: o store não conhece o Router; o simulador não conhece o snapshot.
+- **D** — a UI depende do `CheckoutStore`, não do timer nem do número do cartão.
+
+Não criar interface extra, factory nem pasta `interfaces/`. `core/` e `shared/` existem como camadas da aplicação (borda e contrato), não como ritual SOLID.
+
+**Motivo:** o desafio é um funil pequeno; qualidade é clareza, não cerimônia.
+
+## 9. Organização em camadas
+
+Adotar o layout clássico Angular enterprise: `core/` (catálogo e simulador no lugar do gateway), `shared/` (modelo do snapshot e util de cartão) e `features/` (Guest, Checkout e o `CheckoutStore`). Aliases `@core/*`, `@shared/*` e `@features/*`.
+
+É uma exceção consciente ao “só pasta de feature” do style guide Angular 22, para o recorte de avaliação técnica. Signals, `@Service()` e `inject()` continuam valendo. Header e footer não sobem para `shared`.
+
+**Motivo:** o avaliador encontra borda, contrato e telas em pastas previsíveis, sem interface fantasma nem segundo service de orquestração.

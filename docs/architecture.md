@@ -19,39 +19,51 @@ Não utilizar NgRx, Bootstrap, kit de UI nem backend. Marcas (nexo, Visa, Master
 
 ## 3. Organização do código
 
-Organizar a aplicação por área de feature, com identificadores em inglês, conforme o [style guide Angular 22](https://angular.dev/style-guide#project-structure). Evitar pastas globais por tipo (`pages`, `services`, `src/app/components/`). `guest/components/` e `checkout/components/` são a exceção consciente: chrome de conversão do funil e stepper da feature, não um depósito de UI compartilhado. Uma área autenticada teria o próprio chrome, sem reusar header e footer do Guest.
+Organizar em três camadas, típicas de uma aplicação Angular enterprise, com identificadores em inglês. Aliases: `@core/*`, `@shared/*`, `@features/*`.
 
-Nomes: arquivo kebab-case igual à classe (`CheckoutSuccess` → `checkout-success.ts`); seletor `app-` + nome do arquivo (`app-header`, `app-stepper`); sem `.component.ts` e sem `*-page.ts`. Sucesso e erro usam o prefixo `checkout-` porque a classe `Error` colide com o `Error` nativo; `payment.ts` não precisa desse prefixo.
+- **core** — borda da aplicação: catálogo do produto e o simulador no lugar de um gateway.
+- **shared** — contrato (`CheckoutSnapshot`) e util de cartão, para a feature importar sem copiar regra.
+- **features** — telas e o estado do funil. Header e footer ficam em `features/guest/`; o stepper, em `features/checkout/`. Não vão para `shared`: não são UI genérica.
+
+Nomes: arquivo kebab-case igual à classe (`CheckoutSuccess` → `checkout-success.ts`); seletor `app-` + nome do arquivo (`app-header`, `app-stepper`); sem `.component.ts` e sem `*-page.ts`. Sucesso e erro usam o prefixo `checkout-` porque a classe `Error` colide com o `Error` nativo; `payment.ts` não precisa desse prefixo. Sem pasta `interfaces/` e sem `IPaymentSimulator`.
 
 ```text
 src/app/
-  app.ts                      só router-outlet
+  app.ts
   app.html
-  guest/
-    guest.ts                  funil: header + outlet + footer
-    components/
-      header.ts
-      footer.ts
-  checkout/
-    checkout.ts               host: stepper + outlet
-    payment.ts                miolo de pagamento
-    checkout-success.ts       miolo de sucesso
-    checkout-error.ts         miolo de erro
-    components/
-      stepper.ts
+  core/
+    constants/nexo-pro.ts
+    services/payment-simulator.ts
+  shared/
+    models/checkout.model.ts
+    utils/card.ts
+  features/
+    guest/
+      guest.ts
+      components/header.ts
+      components/footer.ts
+    checkout/
+      checkout.ts
+      payment.ts
+      checkout-success.ts
+      checkout-error.ts
+      checkout-store.ts
+      components/stepper.ts
   app.routes.ts
   app.config.ts
-src/styles.css               estilos globais e tokens visuais
-public/design/               composições de referência para pixel-perfect
+src/styles.css
+public/design/
 ```
 
-O checkout é um funil guest isolado (tipo Stripe Checkout), não o shell logado do produto. Cabeçalho e rodapé de conversão vivem no `Guest`. O stepper existe uma vez no host `Checkout`. Pagamento, sucesso e erro são rotas filhas e só renderizam o miolo. Não há layout autenticado neste repositório. Serviços de estado e simulação, modelos, guards e o restante da UI (resumo, formulário, Pix) ficam em `src/app/checkout/`, junto da feature.
+O checkout é um funil guest isolado (tipo Stripe Checkout), não o shell logado do produto. Cabeçalho e rodapé de conversão vivem no `Guest`. O stepper existe uma vez no host `Checkout`. Pagamento, sucesso e erro são rotas filhas e só renderizam o miolo. Não há layout autenticado neste repositório. O `CheckoutStore` permanece na feature; guards futuros também. O restante da UI (resumo, formulário, Pix) entra em `features/checkout/`.
 
 ## 4. Estado e fluxo de pagamento
 
-O `CheckoutStateService` será responsável pelo estado compartilhado do checkout, utilizando Signals, somente em memória.
+O `CheckoutStore` é responsável pelo estado compartilhado do checkout, utilizando Signals, somente em memória. Expõe o snapshot com `asReadonly()` e derivados com `computed()`. Dependências entram com `inject()`, não pelo construtor.
 
-O `PaymentSimulatorService` será responsável por simular os resultados de pagamento com atraso de aproximadamente 1.200 ms via `Promise` e `setTimeout`.
+O `PaymentSimulator` (`core/services`) simula os resultados de pagamento com atraso de aproximadamente 1.200 ms via `Promise` e `setTimeout`. É a borda no lugar de um gateway. Não usar `resource()`: pagar é um comando, não uma leitura reativa.
+
+Nomes sem sufixo `Service`, alinhados ao style guide Angular 22 (arquivo = classe).
 
 O estado deverá representar os seguintes status:
 
@@ -100,6 +112,11 @@ As telas de resultado só poderão ser acessadas quando houver um resultado vál
 
 ## 8. Qualidade
 
-Priorizar componentes com responsabilidades claras, reutilização quando necessária e código fácil de compreender.
+Seguir a decisão de qualidade de código em `docs/decisions.md` e o [style guide Angular 22](https://angular.dev/style-guide).
+
+- Componentes apresentam; a regra de pagamento fica no `CheckoutStore` e no `PaymentSimulator`.
+- O store só muda por métodos; o snapshot é `asReadonly()`.
+- Um conceito por arquivo. `core` e `shared` são camadas; a UI e o `CheckoutStore` ficam em `features/`.
+- `Guest` cuida do chrome, `Checkout` do stepper e do outlet, o miolo da tela da rota.
 
 Validar a aplicação por meio da matriz de verificações manuais da especificação, revisão de acessibilidade, inspeção do console, build de produção e conferência pixel-perfect contra `public/design/`.
