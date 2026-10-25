@@ -31,12 +31,12 @@
 
 ## Marco 2 — Estrutura visual
 
-**Status:** Não iniciado
+**Status:** Concluído
 
-- [ ] Definir estilos globais e tokens visuais em `src/styles.css`.
-- [ ] Preencher o chrome já existente: header e footer no `Guest`, stepper no host `Checkout`, em pixel-perfect, sem duplicar nas telas.
-- [ ] Estabelecer o layout responsivo do chrome compartilhado.
-- [ ] Conferir pixel-perfect da estrutura compartilhada contra `public/design/`.
+- [x] Definir estilos globais e tokens visuais em `src/styles.css`.
+- [x] Preencher o chrome já existente: header e footer no `Guest`, stepper no host `Checkout`, em pixel-perfect, sem duplicar nas telas.
+- [x] Estabelecer o layout responsivo do chrome compartilhado.
+- [x] Conferir pixel-perfect da estrutura compartilhada contra `public/design/`.
 
 **Conclusão:** header e footer no funil guest e stepper no checkout, cada um uma vez, pixel-perfect contra as telas em `public/design/`.
 

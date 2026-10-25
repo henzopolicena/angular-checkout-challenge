@@ -2,11 +2,19 @@
 
 ## 1. Stack tecnológica
 
-Utilizar Angular 22 com componentes standalone, Angular Router, Signal Forms (`@angular/forms/signals`), Signals e Tailwind CSS 4.
+Utilizar Angular 22 com componentes standalone, Angular Router, Signal Forms (`@angular/forms/signals`), Signals, Tailwind CSS 4 e Lucide (`@lucide/angular`) para glifos de UI.
 
 **Motivo:** utilizar ferramentas modernas do Angular sem adicionar complexidade desnecessária.
 
-Não utilizar NgRx, Bootstrap nem bibliotecas externas de componentes. Tailwind CSS 4 é a única biblioteca de layout do projeto.
+Não utilizar NgRx nem Bootstrap. Não utilizar kit de UI (Spartan, daisyUI ou equivalente): o pixel-perfect contra `public/design/` é Tailwind, não componentes de biblioteca.
+
+Separar três tipos de desenho:
+
+- Glifos de UI (cadeado, check, alerta, copiar, escudo, seta, spinner): Lucide (`@lucide/angular`), tree-shakeable, `currentColor`.
+- Marcas (nexo, Visa, Mastercard, logo Pix): SVG ou asset. Não são ícones de sistema; Lucide não tem Pix.
+- QR Code Pix: imagem ou SVG estático, sem biblioteca de QR.
+
+Tailwind CSS 4 continua sendo a biblioteca de layout.
 
 O Prettier já está no repositório (`.prettierrc` e dependência de desenvolvimento) e deve ser mantido para formatação. Não é uma biblioteca de interface.
 
@@ -77,7 +85,7 @@ A referência visual são as composições em `public/design/`. A implementaçã
 
 O formulário de cartão não abre preenchido. As composições mostram o estado válido, não o estado inicial.
 
-O QR Code Pix é uma imagem ou SVG estático, sem biblioteca extra. O código copia e cola é `000201.NEXO-PRO.7990.DEMO`.
+O QR Code Pix é uma imagem ou SVG estático, sem biblioteca de QR. O código copia e cola é `000201.NEXO-PRO.7990.DEMO`.
 
 Os rótulos do rodapé e “Fale com a gente” não navegam para páginas reais.
 

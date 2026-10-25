@@ -8,9 +8,13 @@ import { Header } from './components/header';
   selector: 'app-guest',
   imports: [RouterOutlet, Header, Footer],
   template: `
-    <app-header />
-    <router-outlet />
-    <app-footer />
+    <div class="flex min-h-dvh flex-col bg-page text-ink">
+      <app-header />
+      <div class="flex-1">
+        <router-outlet />
+      </div>
+      <app-footer />
+    </div>
   `,
 })
 export class Guest {}

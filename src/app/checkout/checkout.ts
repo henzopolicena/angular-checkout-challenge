@@ -10,7 +10,7 @@ import { Stepper, type CheckoutStep } from './components/stepper';
   imports: [RouterOutlet, Stepper],
   template: `
     <app-stepper [step]="currentStep()" />
-    <main>
+    <main class="mx-auto w-full max-w-shell px-5 py-6 md:px-8 md:py-8">
       <router-outlet />
     </main>
   `,

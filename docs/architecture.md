@@ -13,8 +13,9 @@ A arquitetura deve ser simples, modular e proporcional ao escopo do desafio.
 - Signal Forms (`@angular/forms/signals`) para validação dos formulários.
 - Signals para gerenciamento de estado.
 - Tailwind CSS 4 para estilização.
+- Lucide (`@lucide/angular`) para glifos de UI.
 
-Não utilizar NgRx, Bootstrap, bibliotecas externas de componentes ou backend.
+Não utilizar NgRx, Bootstrap, kit de UI nem backend. Marcas (nexo, Visa, Mastercard, Pix) são SVG ou asset; o QR Pix é estático.
 
 ## 3. Organização do código
 

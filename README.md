@@ -16,6 +16,7 @@ Implementar uma experiência de checkout responsiva, com validação de formulá
 - Angular Router
 - Signal Forms
 - Angular Signals
+- Lucide (`@lucide/angular`)
 
 ## Funcionalidades previstas
 

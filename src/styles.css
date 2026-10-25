@@ -1,1 +1,35 @@
 @import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --color-page: #f6f7fb;
+  --color-surface: #ffffff;
+  --color-brand: #5750cf;
+  --color-brand-soft: #efeefa;
+  --color-ink: #24273c;
+  --color-muted: #8b8d9a;
+  --color-line: #e8e9f2;
+  --color-success: #22c17a;
+  --color-success-soft: #e8f8f0;
+
+  --radius-mark: 0.625rem;
+  --max-width-shell: 70rem;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-page);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+  }
+}

@@ -3,13 +3,17 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-footer',
   template: `
-    <footer>
-      <p>© 2026 Nexo. Todos os direitos reservados.</p>
-      <p>
-        <span>Precisa de ajuda?</span>
-        <span>Privacidade</span>
-        <span>Termos</span>
-      </p>
+    <footer class="bg-page">
+      <div
+        class="mx-auto flex max-w-shell flex-col gap-3 px-5 py-6 text-xs md:flex-row md:items-center md:justify-between md:px-8 md:py-7 md:text-sm"
+      >
+        <p class="text-muted">© 2026 Nexo. Todos os direitos reservados.</p>
+        <p class="flex flex-wrap gap-x-5 gap-y-1 font-medium text-brand">
+          <span>Precisa de ajuda?</span>
+          <span>Privacidade</span>
+          <span>Termos</span>
+        </p>
+      </div>
     </footer>
   `,
 })

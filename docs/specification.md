@@ -16,8 +16,9 @@ O produto simulado é o **Nexo Pro**: plano mensal, 1 usuário, R$ 79,90.
 - Angular Router.
 - Signal Forms (`@angular/forms/signals`).
 - Signals para o estado compartilhado.
+- Lucide (`@lucide/angular`) para glifos de UI.
 
-Não utilizar NgRx, Bootstrap, bibliotecas externas de componentes ou gerenciamento de estado.
+Não utilizar NgRx, Bootstrap, kit de UI nem biblioteca extra de gerenciamento de estado. Marcas (nexo, Visa, Mastercard, Pix) são SVG ou asset; o QR Pix é estático.
 
 O documento HTML deve usar `lang="pt-BR"`. A interface e a documentação são em português brasileiro.
 
