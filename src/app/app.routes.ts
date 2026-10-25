@@ -3,7 +3,7 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: '',
-    loadComponent: () => import('./features/guest/guest').then((m) => m.Guest),
+    loadComponent: () => import('./layout/guest/guest').then((m) => m.Guest),
     children: [
       { path: '', pathMatch: 'full', redirectTo: 'checkout' },
       {

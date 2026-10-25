@@ -18,7 +18,7 @@ Implementar uma experiência de checkout responsiva, com validação de formulá
 - Angular Signals
 - Lucide (`@lucide/angular`)
 
-A pasta `src/app` segue camadas enterprise: `core/` (catálogo e simulador, no lugar de um gateway), `shared/` (modelo e util de cartão) e `features/` (Guest e Checkout). Aliases `@core/*`, `@shared/*` e `@features/*`. Não há NgRx, Bootstrap, backend nem pasta de interfaces.
+A pasta `src/app` segue camadas enterprise: `core/` (catálogo e simulador, no lugar de um gateway), `shared/` (modelo e util de cartão), `layout/` (chrome do funil guest) e `features/` (Checkout). Aliases `@core/*`, `@shared/*`, `@layout/*` e `@features/*`. Não há NgRx, Bootstrap, backend nem pasta de interfaces.
 
 ## Funcionalidades previstas
 

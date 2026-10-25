@@ -12,20 +12,21 @@ A arquitetura deve ser simples, modular e proporcional ao escopo do desafio.
 - Angular Router para navegação.
 - Signal Forms (`@angular/forms/signals`) para validação dos formulários.
 - Signals para gerenciamento de estado.
-- Tailwind CSS 4 para estilização.
+- Tailwind CSS 4 para layout: tokens em `@theme` e utilitários nas templates.
 - Lucide (`@lucide/angular`) para glifos de UI.
 
 Não utilizar NgRx, Bootstrap, kit de UI nem backend. Marcas (nexo, Visa, Mastercard, Pix) são SVG ou asset; o QR Pix é estático.
 
 ## 3. Organização do código
 
-Organizar em três camadas, típicas de uma aplicação Angular enterprise, com identificadores em inglês. Aliases: `@core/*`, `@shared/*`, `@features/*`.
+Organizar em quatro camadas, típicas de uma aplicação Angular enterprise, com identificadores em inglês. Aliases: `@core/*`, `@shared/*`, `@layout/*`, `@features/*`.
 
 - **core** — borda da aplicação: catálogo do produto e o simulador no lugar de um gateway.
 - **shared** — contrato (`CheckoutSnapshot`) e util de cartão, para a feature importar sem copiar regra.
-- **features** — telas e o estado do funil. Header e footer ficam em `features/guest/`; o stepper, em `features/checkout/`. Não vão para `shared`: não são UI genérica.
+- **layout** — chrome do funil de conversão (`Guest`, header e footer). Não é feature nem UI genérica: um app logado teria outro shell.
+- **features** — telas e o estado do funil. O stepper fica em `features/checkout/`. Não sobe para `shared`.
 
-Nomes: arquivo kebab-case igual à classe (`CheckoutSuccess` → `checkout-success.ts`); seletor `app-` + nome do arquivo (`app-header`, `app-stepper`); sem `.component.ts` e sem `*-page.ts`. Sucesso e erro usam o prefixo `checkout-` porque a classe `Error` colide com o `Error` nativo; `payment.ts` não precisa desse prefixo. Sem pasta `interfaces/` e sem `IPaymentSimulator`.
+Nomes: arquivo kebab-case igual à classe (`CheckoutSuccess` → `checkout-success.ts`); seletor `app-` + nome do arquivo (`app-header`, `app-stepper`); sem `.component.ts` e sem `*-page.ts`. Cada componente fica na própria pasta (`header/header.ts`), como o `ng generate component`. Sucesso e erro usam o prefixo `checkout-` porque a classe `Error` colide com o `Error` nativo; `payment.ts` não precisa desse prefixo. Sem pasta `interfaces/` e sem `IPaymentSimulator`. Componentes de UI usam `*.ts` e `*.html`; CSS de componente só entra quando um utilitário Tailwind não cobre o caso.
 
 ```text
 src/app/
@@ -37,25 +38,30 @@ src/app/
   shared/
     models/checkout.model.ts
     utils/card.ts
-  features/
+  layout/
     guest/
-      guest.ts
-      components/header.ts
-      components/footer.ts
+      guest.ts / guest.html
+      components/header/header.ts (+ .html)
+      components/footer/footer.ts (+ .html)
+  features/
     checkout/
-      checkout.ts
-      payment.ts
-      checkout-success.ts
-      checkout-error.ts
-      checkout-store.ts
-      components/stepper.ts
+      checkout.ts / card.schema.ts / checkout-store.ts
+      payment/payment.ts (+ .html)
+      checkout-success/checkout-success.ts (+ .html)
+      checkout-error/checkout-error.ts (+ .html)
+      components/stepper/stepper.ts (+ .html)
+      components/order-summary/order-summary.ts (+ .html)
+      components/payment-methods/payment-methods.ts (+ .html)
+      components/card-fields/card-fields.ts (+ .html)
+      components/pix-panel/pix-panel.ts (+ .html)
+      components/processing-panel/processing-panel.ts (+ .html)
   app.routes.ts
   app.config.ts
 src/styles.css
 public/design/
 ```
 
-O checkout é um funil guest isolado (tipo Stripe Checkout), não o shell logado do produto. Cabeçalho e rodapé de conversão vivem no `Guest`. O stepper existe uma vez no host `Checkout`. Pagamento, sucesso e erro são rotas filhas e só renderizam o miolo. Não há layout autenticado neste repositório. O `CheckoutStore` permanece na feature; guards futuros também. O restante da UI (resumo, formulário, Pix) entra em `features/checkout/`.
+O checkout é um funil guest isolado (tipo Stripe Checkout), não o shell logado do produto. Cabeçalho e rodapé de conversão vivem em `layout/guest/`. O stepper existe uma vez no host `Checkout`. Pagamento, sucesso e erro são rotas filhas e só renderizam o miolo. Não há layout autenticado neste repositório. O `CheckoutStore` permanece na feature; guards futuros também. O restante da UI (resumo, formulário, Pix) entra em `features/checkout/`.
 
 ## 4. Estado e fluxo de pagamento
 
@@ -76,7 +82,7 @@ O status `processing` é apresentado na própria página de checkout. Depois do 
 
 O estado compartilhado pode guardar meio de pagamento, bandeira, últimos 4 dígitos, valor, identificador `#NX-10482`, e-mail fictício e status. Não guardar o número completo do cartão nem o CVV.
 
-Os componentes serão responsáveis pela apresentação e interação com o usuário, sem concentrar toda a lógica de negócio nos templates.
+Os componentes serão responsáveis pela apresentação e interação com o usuário, sem concentrar toda a lógica de negócio nos templates. Layout e estados visuais usam utilitários Tailwind e `[class.*]` no HTML; o TypeScript não monta strings de classe.
 
 ## 5. Formulários
 
@@ -116,7 +122,7 @@ Seguir a decisão de qualidade de código em `docs/decisions.md` e o [style guid
 
 - Componentes apresentam; a regra de pagamento fica no `CheckoutStore` e no `PaymentSimulator`.
 - O store só muda por métodos; o snapshot é `asReadonly()`.
-- Um conceito por arquivo. `core` e `shared` são camadas; a UI e o `CheckoutStore` ficam em `features/`.
+- Um conceito por arquivo. `core`, `shared` e `layout` são camadas; as telas e o `CheckoutStore` ficam em `features/`.
 - `Guest` cuida do chrome, `Checkout` do stepper e do outlet, o miolo da tela da rota.
 
 Validar a aplicação por meio da matriz de verificações manuais da especificação, revisão de acessibilidade, inspeção do console, build de produção e conferência pixel-perfect contra `public/design/`.

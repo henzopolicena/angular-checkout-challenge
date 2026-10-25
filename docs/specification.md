@@ -33,7 +33,7 @@ A implementação deve ser pixel-perfect contra as composições em `public/desi
 
 ## 4. Interface compartilhada
 
-Cabeçalho e rodapé existem uma vez no shell `Guest` (funil de conversão). O indicador de etapas existe uma vez no host do checkout. As três telas só renderizam o miolo. O stepper não é um mapa de rotas: Pedido não é tela; pagamento e erro usam o passo Pagamento; sucesso usa Confirmação. Não há layout autenticado: o checkout é um funil guest isolado.
+Cabeçalho e rodapé existem uma vez no shell `Guest` em `layout/guest/` (funil de conversão). O indicador de etapas existe uma vez no host do checkout. As três telas só renderizam o miolo. O stepper não é um mapa de rotas: Pedido não é tela; pagamento e erro usam o passo Pagamento; sucesso usa Confirmação. Não há layout autenticado: o checkout é um funil guest isolado.
 
 A interface deve incluir:
 

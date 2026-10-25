@@ -6,7 +6,7 @@ Utilizar Angular 22 com componentes standalone, Angular Router, Signal Forms (`@
 
 **Motivo:** utilizar ferramentas modernas do Angular sem adicionar complexidade desnecessária.
 
-Não utilizar NgRx nem Bootstrap. Não utilizar kit de UI (Spartan, daisyUI ou equivalente): o pixel-perfect contra `public/design/` é Tailwind, não componentes de biblioteca.
+Não utilizar NgRx nem Bootstrap. Não utilizar kit de UI (Spartan, daisyUI ou equivalente): o pixel-perfect contra `public/design/` é Tailwind nas templates, com os tokens do `@theme`, não componentes de biblioteca.
 
 Separar três tipos de desenho:
 
@@ -14,7 +14,7 @@ Separar três tipos de desenho:
 - Marcas (nexo, Visa, Mastercard, logo Pix): SVG ou asset. Não são ícones de sistema; Lucide não tem Pix.
 - QR Code Pix: imagem ou SVG estático, sem biblioteca de QR.
 
-Tailwind CSS 4 continua sendo a biblioteca de layout.
+Tailwind CSS 4 é o sistema de apresentação: tokens em `@theme` (`src/styles.css`) e utilitários nas templates (`bg-brand`, `rounded-xl`, `[class.border-danger]`). O TypeScript não monta strings de classe. CSS de componente só entra quando um utilitário não cobre o caso. Exceção consciente ao template inline do style guide Angular 22, para o recorte de avaliação.
 
 O Prettier já está no repositório (`.prettierrc` e dependência de desenvolvimento) e deve ser mantido para formatação. Não é uma biblioteca de interface.
 
@@ -57,7 +57,7 @@ O estado compartilhado pode guardar meio, bandeira, últimos 4 dígitos, valor, 
 
 Utilizar as rotas `/`, `/checkout`, `/checkout/success` e `/checkout/error`. A rota `/` redireciona para `/checkout`.
 
-O `Guest` é o único shell: funil de conversão (nexo, “Checkout seguro”, rodapé institucional), sem avatar, menu de conta ou sidebar. Header e footer ficam em `features/guest/components/`; uma área autenticada teria chrome próprio, sem reusar esses arquivos. O `Checkout` concentra o stepper. Pagamento, sucesso e erro são filhos lazy com `loadComponent`. O checkout não é o layout logado do produto; “Acessar meu espaço” no sucesso é destino futuro, não um envelope destas telas.
+O `Guest` é o único shell: funil de conversão (nexo, “Checkout seguro”, rodapé institucional), sem avatar, menu de conta ou sidebar. Header e footer ficam em `layout/guest/components/`; uma área autenticada teria chrome próprio, sem reusar esses arquivos. O `Checkout` concentra o stepper. Pagamento, sucesso e erro são filhos lazy com `loadComponent`. O checkout não é o layout logado do produto; “Acessar meu espaço” no sucesso é destino futuro, não um envelope destas telas.
 
 As rotas de resultado exigem um resultado válido em memória, verificado por `CanActivate` ou `CanMatch` nos filhos `success` e `error`. Sem ele, o usuário retorna ao checkout.
 
@@ -117,8 +117,8 @@ Não criar interface extra, factory nem pasta `interfaces/`. `core/` e `shared/`
 
 ## 9. Organização em camadas
 
-Adotar o layout clássico Angular enterprise: `core/` (catálogo e simulador no lugar do gateway), `shared/` (modelo do snapshot e util de cartão) e `features/` (Guest, Checkout e o `CheckoutStore`). Aliases `@core/*`, `@shared/*` e `@features/*`.
+Adotar o layout clássico Angular enterprise: `core/` (catálogo e simulador no lugar do gateway), `shared/` (modelo do snapshot e util de cartão), `layout/` (chrome do funil guest) e `features/` (Checkout e o `CheckoutStore`). Aliases `@core/*`, `@shared/*`, `@layout/*` e `@features/*`.
 
-É uma exceção consciente ao “só pasta de feature” do style guide Angular 22, para o recorte de avaliação técnica. Signals, `@Service()` e `inject()` continuam valendo. Header e footer não sobem para `shared`.
+É uma exceção consciente ao “só pasta de feature” do style guide Angular 22, para o recorte de avaliação técnica. Signals, `@Service()` e `inject()` continuam valendo. Header e footer ficam em `layout/`, não em `shared` nem em `features/`.
 
 **Motivo:** o avaliador encontra borda, contrato e telas em pastas previsíveis, sem interface fantasma nem segundo service de orquestração.
