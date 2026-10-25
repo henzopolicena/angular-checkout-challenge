@@ -1,0 +1,43 @@
+<nav class="px-5 pt-6 md:px-8 md:pt-8" aria-label="Etapas do checkout">
+  <div class="relative mx-auto max-w-[36rem] md:max-w-[40rem]">
+    <div
+      class="pointer-events-none absolute top-3 right-[16%] left-[16%] h-px bg-line md:top-3.5"
+      aria-hidden="true"
+    ></div>
+    <ol class="relative z-10 flex items-start justify-between">
+      @for (item of steps; track item.id; let index = $index) {
+        <li
+          class="flex flex-1 flex-col items-center gap-2"
+          [attr.aria-current]="statusOf(item.id) === 'current' ? 'step' : null"
+          [attr.aria-label]="stepLabel(item.label, item.id)"
+        >
+          <span
+            class="flex size-6 items-center justify-center rounded-full text-[0.65rem] font-semibold md:size-7 md:text-xs"
+            [class.bg-success]="statusOf(item.id) === 'completed'"
+            [class.text-surface]="statusOf(item.id) === 'completed' || statusOf(item.id) === 'current'"
+            [class.bg-brand]="statusOf(item.id) === 'current'"
+            [class.bg-surface]="statusOf(item.id) === 'upcoming'"
+            [class.text-muted]="statusOf(item.id) === 'upcoming'"
+            [class.ring-1]="statusOf(item.id) === 'upcoming'"
+            [class.ring-line]="statusOf(item.id) === 'upcoming'"
+            aria-hidden="true"
+          >
+            @if (statusOf(item.id) === 'completed') {
+              <svg lucideCheck [size]="12" [strokeWidth]="3"></svg>
+            } @else {
+              {{ index + 1 }}
+            }
+          </span>
+          <span
+            class="text-[0.7rem] font-medium md:text-sm"
+            [class.text-brand]="statusOf(item.id) === 'current'"
+            [class.text-muted]="statusOf(item.id) !== 'current'"
+            aria-hidden="true"
+          >
+            {{ item.label }}
+          </span>
+        </li>
+      }
+    </ol>
+  </div>
+</nav>
