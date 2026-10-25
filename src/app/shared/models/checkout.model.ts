@@ -8,6 +8,25 @@ export const PAYMENT_METHOD_LABEL: Record<PaymentMethod, string> = {
   debit: 'Débito',
   pix: 'Pix',
 };
+
+export function paymentCaption(
+  method: PaymentMethod | null,
+  brand: CardBrand | null,
+  last4: string | null,
+): string {
+  if (!method) {
+    return '—';
+  }
+
+  const label = PAYMENT_METHOD_LABEL[method];
+  if (method === 'pix' || !brand || !last4) {
+    return label;
+  }
+
+  const brandLabel = brand === 'visa' ? 'Visa' : 'Mastercard';
+  return `${label} · ${brandLabel} •••• ${last4}`;
+}
+
 export type CheckoutStatus = 'idle' | 'processing' | 'success' | 'error';
 export type { CardBrand };
 

@@ -1,1 +1,75 @@
-<h1 class="sr-only">Erro</h1>
+<div class="mx-auto max-w-[42rem]">
+  <section class="rounded-2xl border border-line bg-surface px-6 py-10 text-center shadow-sm md:px-10 md:py-12">
+    <div
+      class="mx-auto flex size-[4.25rem] items-center justify-center rounded-full border-[3px] border-danger/35"
+    >
+      <span class="text-[1.75rem] font-medium leading-none text-danger" aria-hidden="true">!</span>
+    </div>
+
+    <h1 class="mt-5 text-[1.625rem] font-semibold leading-tight tracking-tight text-ink">
+      Não foi possível concluir o pagamento
+    </h1>
+    <p class="mx-auto mt-2 max-w-md text-sm text-muted">
+      Não se preocupe: nenhuma cobrança foi realizada e seu pedido continua reservado.
+    </p>
+
+    <div class="mt-6 flex gap-3 rounded-xl bg-danger-soft px-4 py-3 text-left" role="alert">
+      <svg lucideCircleAlert class="mt-0.5 shrink-0 text-danger" [size]="18" aria-hidden="true"></svg>
+      <div>
+        <p class="text-sm font-semibold text-danger">{{ snapshot().errorReason }}</p>
+        <p class="mt-1 text-sm text-danger">
+          Seu banco recusou esta transação. Confira os dados e o limite disponível ou use outro meio
+          de pagamento.
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-6 rounded-xl border border-line bg-page px-5 py-4 text-left">
+      <div class="flex items-center gap-3">
+        <img ngSrc="nexo-mark.svg" width="40" height="40" alt="" class="size-10 rounded-mark" />
+        <div>
+          <p class="font-semibold text-ink">{{ catalog.name }}</p>
+          <p class="text-xs text-muted">{{ catalog.billing }} · {{ catalog.seats }} usuário</p>
+        </div>
+      </div>
+
+      <dl class="mt-4 space-y-2.5 border-t border-line pt-4 text-sm">
+        <div class="flex justify-between gap-4">
+          <dt class="text-muted">Pedido</dt>
+          <dd class="font-medium text-ink">{{ snapshot().orderId }}</dd>
+        </div>
+        <div class="flex justify-between gap-4">
+          <dt class="text-muted">Meio usado</dt>
+          <dd class="text-right font-medium text-ink">{{ caption() }}</dd>
+        </div>
+        <div class="flex items-baseline justify-between gap-4 border-t border-line pt-3">
+          <dt class="font-semibold text-ink">Total a pagar</dt>
+          <dd class="text-xl font-black text-ink">{{ total }}</dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+      <button
+        type="button"
+        class="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-full bg-brand px-6 text-sm font-semibold text-surface"
+        (click)="retry()"
+      >
+        Tentar novamente
+      </button>
+      <button
+        type="button"
+        class="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-full border border-line bg-surface px-6 text-sm font-semibold text-ink"
+        (click)="chooseOtherMethod()"
+      >
+        Escolher outro meio
+      </button>
+    </div>
+
+    <p class="mt-4 text-xs text-muted">Você pode pagar com outro cartão ou escolher Pix.</p>
+  </section>
+
+  <p class="mt-5 cursor-pointer text-center text-sm text-brand">
+    Ainda precisa de ajuda? Fale com a gente
+  </p>
+</div>

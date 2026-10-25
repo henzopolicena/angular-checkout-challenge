@@ -1,5 +1,6 @@
 export const NEXO_PRO = {
   name: 'Nexo Pro',
+  customerName: 'Marina',
   billing: 'Plano mensal',
   seats: 1,
   amount: 79.9,

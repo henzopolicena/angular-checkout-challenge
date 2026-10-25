@@ -1,1 +1,90 @@
-<h1 class="sr-only">Sucesso</h1>
+<div class="mx-auto max-w-[42rem]">
+  <section class="rounded-2xl border border-line bg-surface px-6 py-10 text-center shadow-sm md:px-10 md:py-12">
+    <div
+      class="mx-auto flex size-[4.25rem] items-center justify-center rounded-full border-[3px] border-success/35"
+    >
+      <svg
+        lucideCheck
+        class="text-success"
+        [size]="34"
+        [strokeWidth]="2.25"
+        aria-hidden="true"
+      ></svg>
+    </div>
+
+    <h1 class="mt-5 text-[2rem] font-semibold leading-tight tracking-tight text-ink">
+      Pagamento confirmado!
+    </h1>
+    <p class="mx-auto mt-2 max-w-md text-sm text-muted">
+      Tudo certo, {{ catalog.customerName }}. Sua assinatura está ativa e seu espaço já está pronto
+      para você.
+    </p>
+
+    <p
+      class="mt-4 inline-flex items-center gap-1.5 rounded-full bg-success-soft px-3 py-1 text-xs font-medium text-success"
+    >
+      <svg lucideCheck [size]="14" [strokeWidth]="3" aria-hidden="true"></svg>
+      Assinatura ativa
+    </p>
+
+    <div class="mt-8 rounded-xl border border-line bg-page px-5 py-4 text-left">
+      <div class="flex items-center gap-3">
+        <img ngSrc="nexo-mark.svg" width="40" height="40" alt="" class="size-10 rounded-mark" />
+        <div>
+          <p class="font-semibold text-ink">{{ catalog.name }}</p>
+          <p class="text-xs text-muted">{{ catalog.billing }} · {{ catalog.seats }} usuário</p>
+        </div>
+      </div>
+
+      <dl class="mt-4 space-y-2.5 border-t border-line pt-4 text-sm">
+        <div class="flex justify-between gap-4">
+          <dt class="text-muted">Pedido</dt>
+          <dd class="font-medium text-ink">{{ snapshot().orderId }}</dd>
+        </div>
+        <div class="flex justify-between gap-4">
+          <dt class="text-muted">Pagamento</dt>
+          <dd class="text-right font-medium text-ink">{{ caption() }}</dd>
+        </div>
+        <div class="flex justify-between gap-4">
+          <dt class="text-muted">Data</dt>
+          <dd class="font-medium text-ink">{{ paidAt() }}</dd>
+        </div>
+        <div class="flex items-baseline justify-between gap-4 border-t border-line pt-3">
+          <dt class="font-semibold text-ink">Total pago</dt>
+          <dd class="text-xl font-black text-ink">{{ total }}</dd>
+        </div>
+      </dl>
+    </div>
+
+    <p class="mt-5 text-xs text-muted">
+      Enviamos o recibo para
+      <span class="mt-0.5 block font-medium text-ink">{{ snapshot().receiptEmail }}</span>
+    </p>
+
+    @if (notice(); as message) {
+      <p class="mt-4 text-sm text-brand" role="status">{{ message }}</p>
+    }
+
+    <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+      <button
+        type="button"
+        class="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-full bg-brand px-6 text-sm font-semibold text-surface"
+        (click)="onAccess()"
+      >
+        <svg lucideArrowRight [size]="16" aria-hidden="true"></svg>
+        Acessar meu espaço
+      </button>
+      <button
+        type="button"
+        class="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-full border border-line bg-surface px-6 text-sm font-semibold text-ink"
+        (click)="onReceipt()"
+      >
+        Ver recibo
+      </button>
+    </div>
+  </section>
+
+  <p class="mt-5 text-center text-sm text-muted">
+    Sua próxima renovação será em {{ renewalOn() }}.
+  </p>
+</div>
