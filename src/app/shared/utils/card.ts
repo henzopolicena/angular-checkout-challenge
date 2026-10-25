@@ -51,13 +51,6 @@ export function isSupportedCardNumber(value: string): boolean {
   return passesLuhn(digits) && detectBrand(digits) !== null;
 }
 
-export function holderWordCount(name: string): number {
-  return name
-    .trim()
-    .split(/\s+/)
-    .filter((word) => word.length > 0).length;
-}
-
 export function isExpiryCurrentOrFuture(expiry: string, now = new Date()): boolean {
   const match = /^(\d{2})\/(\d{2})$/.exec(expiry);
   if (!match) {

@@ -6,12 +6,16 @@
       <div class="mb-1.5 flex items-center justify-between gap-3">
         <label class="text-sm text-ink" for="card-number">Número do cartão</label>
         @if (brandSrc(); as mark) {
-          <img [ngSrc]="mark" width="40" height="14" alt="" class="h-3.5 w-auto" />
+          @if (mark === 'visa-mark.svg') {
+            <img ngSrc="visa-mark.svg" width="40" height="13" alt="" class="h-3.5 w-auto" />
+          } @else {
+            <img ngSrc="mastercard-mark.svg" width="40" height="31" alt="" class="h-3.5 w-auto" />
+          }
         }
       </div>
       <input
         id="card-number"
-        class="h-11 w-full rounded-lg border border-line bg-surface px-3 text-sm text-ink outline-none data-[tone=invalid]:border-danger data-[tone=invalid]:bg-danger-soft data-[tone=invalid]:text-danger data-[tone=valid]:border-success"
+        class="h-11 w-full rounded-lg border border-line bg-surface px-3 text-sm text-ink outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand data-[tone=invalid]:border-danger data-[tone=invalid]:bg-danger-soft data-[tone=invalid]:text-danger data-[tone=valid]:border-success"
         type="text"
         inputmode="numeric"
         autocomplete="cc-number"
@@ -33,7 +37,7 @@
       <label class="mb-1.5 block text-sm text-ink" for="card-holder">Nome no cartão</label>
       <input
         id="card-holder"
-        class="h-11 w-full rounded-lg border border-line bg-surface px-3 text-sm text-ink uppercase outline-none data-[tone=invalid]:border-danger data-[tone=invalid]:bg-danger-soft data-[tone=invalid]:text-danger data-[tone=valid]:border-success"
+        class="h-11 w-full rounded-lg border border-line bg-surface px-3 text-sm text-ink uppercase outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand data-[tone=invalid]:border-danger data-[tone=invalid]:bg-danger-soft data-[tone=invalid]:text-danger data-[tone=valid]:border-success"
         type="text"
         autocomplete="cc-name"
         placeholder="Nome completo"
@@ -54,7 +58,7 @@
         <label class="mb-1.5 block text-sm text-ink" for="card-expiry">Validade</label>
         <input
           id="card-expiry"
-          class="h-11 w-full rounded-lg border border-line bg-surface px-3 text-sm text-ink outline-none data-[tone=invalid]:border-danger data-[tone=invalid]:bg-danger-soft data-[tone=invalid]:text-danger data-[tone=valid]:border-success"
+          class="h-11 w-full rounded-lg border border-line bg-surface px-3 text-sm text-ink outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand data-[tone=invalid]:border-danger data-[tone=invalid]:bg-danger-soft data-[tone=invalid]:text-danger data-[tone=valid]:border-success"
           type="text"
           inputmode="numeric"
           autocomplete="cc-exp"
@@ -75,7 +79,7 @@
         <label class="mb-1.5 block text-sm text-ink" for="card-cvv">CVV</label>
         <input
           id="card-cvv"
-          class="h-11 w-full rounded-lg border border-line bg-surface px-3 text-sm text-ink outline-none data-[tone=invalid]:border-danger data-[tone=invalid]:bg-danger-soft data-[tone=invalid]:text-danger data-[tone=valid]:border-success"
+          class="h-11 w-full rounded-lg border border-line bg-surface px-3 text-sm text-ink outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand data-[tone=invalid]:border-danger data-[tone=invalid]:bg-danger-soft data-[tone=invalid]:text-danger data-[tone=valid]:border-success"
           type="password"
           inputmode="numeric"
           autocomplete="cc-csc"

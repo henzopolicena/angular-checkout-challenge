@@ -35,4 +35,21 @@
     outline: 2px solid var(--color-brand);
     outline-offset: 2px;
   }
+
+  button:enabled,
+  [type='button']:enabled,
+  [type='submit']:enabled,
+  a[href],
+  label,
+  input[type='radio'],
+  input[type='checkbox'],
+  summary {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  [type='button']:disabled,
+  [type='submit']:disabled {
+    cursor: not-allowed;
+  }
 }

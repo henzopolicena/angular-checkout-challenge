@@ -21,15 +21,9 @@
 
         @if (snapshot().method === 'pix') {
           <app-pix-panel [pixCode]="pixCode" (complete)="onPixComplete()" />
-        } @else {
+        } @else if (snapshot().method === 'credit' || snapshot().method === 'debit') {
           <form novalidate (submit)="onPay($event)">
             <app-card-fields [cardForm]="cardForm" [title]="cardTitle()" [brandSrc]="brandSrc()" />
-
-            @if (snapshot().method === 'debit') {
-              <p class="mt-4 text-xs text-muted">
-                Use os mesmos campos e mensagens de validação do cartão de crédito.
-              </p>
-            }
 
             <button
               type="submit"
@@ -48,9 +42,9 @@
 
             <p class="mt-3 text-center text-xs text-muted">
               Ao continuar, você concorda com os
-              <span class="font-medium text-brand">Termos de uso</span>
+              <span class="cursor-pointer font-medium text-brand">Termos de uso</span>
               e a
-              <span class="font-medium text-brand">Política de privacidade</span>.
+              <span class="cursor-pointer font-medium text-brand">Política de privacidade</span>.
             </p>
           </form>
         }
