@@ -1,0 +1,60 @@
+<section class="mt-5">
+  <h3 class="flex items-center gap-2 text-sm font-semibold text-ink">
+    <svg lucideQrCode [size]="16" aria-hidden="true"></svg>
+    Pague com seu app do banco
+  </h3>
+  <p class="mt-1 text-sm text-muted">
+    Abra o app do Pix e escaneie o QR Code ou use o código abaixo. Depois, conclua o pagamento.
+  </p>
+
+  <img
+    ngSrc="pix-qr.svg"
+    width="176"
+    height="176"
+    alt="QR Code simulado — sem valor de pagamento"
+    class="mx-auto mt-5 size-44 rounded-xl border border-line bg-surface p-2"
+  />
+  <p class="mt-2 text-center text-xs text-muted">QR Code simulado — sem valor de pagamento</p>
+
+  <div class="mt-5">
+    <p class="text-xs font-medium text-muted">Pix copia e cola</p>
+    <div class="mt-1 flex items-center gap-2 rounded-lg bg-page px-3 py-2">
+      <p class="min-w-0 flex-1 break-all font-mono text-xs text-ink">{{ pixCode() }}</p>
+      <button
+        type="button"
+        class="shrink-0 text-brand"
+        (click)="copyCode()"
+        aria-label="Copiar código Pix"
+      >
+        <svg lucideCopy [size]="16" aria-hidden="true"></svg>
+      </button>
+    </div>
+  </div>
+
+  <button
+    type="button"
+    class="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl border border-line bg-surface px-4 py-3 text-sm font-black text-ink"
+    (click)="copyCode()"
+  >
+    <svg lucideCopy [size]="16" aria-hidden="true"></svg>
+    Copiar código Pix
+  </button>
+
+  @if (copyState() === 'copied') {
+    <p class="mt-2 text-center text-xs text-success" role="status">Código copiado.</p>
+  }
+  @if (copyState() === 'failed') {
+    <p class="mt-2 text-center text-xs text-danger" role="alert">
+      Não foi possível copiar automaticamente. Use o código exibido acima.
+    </p>
+  }
+
+  <button
+    type="button"
+    class="mt-4 inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-brand text-sm font-semibold text-surface"
+    (click)="complete.emit()"
+  >
+    <svg lucideArrowRight [size]="16" aria-hidden="true"></svg>
+    Concluir pagamento
+  </button>
+</section>
