@@ -64,7 +64,7 @@ Disponibilizar três meios de pagamento:
 - **Cartão de débito:** mesmos campos, validações, mensagens e cartões de teste do crédito.
 - **Pix:** QR Code e código fictícios, com opção de copiar e concluir a simulação.
 
-O formulário **não** abre preenchido. O estado preenchido das composições ilustra o formulário válido, não o estado inicial.
+O checkout abre com **crédito** selecionado. O formulário **não** abre preenchido: os campos começam vazios. O estado preenchido das composições ilustra o formulário válido, não o estado inicial.
 
 Com o cartão válido, exibir o selo “Dados do cartão preenchidos”. O botão de envio usa o texto “Pagar R$ 79,90”. Abaixo dele: “Ao continuar, você concorda com os Termos de uso e a Política de privacidade.”
 
@@ -118,16 +118,15 @@ Nenhuma cobrança ou transação real será realizada.
 ### Sucesso
 
 - Título: “Pagamento confirmado!”
-- Confirmação de assinatura ativa, sem alegar que uma conta real existe.
-- Resumo: Nexo Pro; pedido `#NX-10482`; meio usado (ex.: Crédito · Visa •••• 4242); data e hora fictícias da tentativa; total pago R$ 79,90.
-- Nota de recibo para `marina.almeida@exemplo.com`.
+- Texto da referência visual: “Tudo certo, Marina. Sua assinatura está ativa e seu espaço já está pronto para você.”, selo “Assinatura ativa” e “Enviamos o recibo para marina.almeida@exemplo.com”. Essa cópia descreve a simulação; nenhuma conta, recibo ou cobrança reais existem.
+- Resumo: Nexo Pro; pedido `#NX-10482`; meio usado (ex.: Crédito · Visa •••• 4242); data e hora da tentativa em memória; total pago R$ 79,90.
 - Próxima renovação fictícia no mês seguinte à data exibida.
-- Ações “Acessar meu espaço” e “Ver recibo”: feedback simulado na própria tela, sem nova rota e sem alegar que uma conta ou recibo real existe.
+- Ações “Acessar meu espaço” e “Ver recibo”: sem nova rota. Exibem na própria tela “Espaço simulado. Nenhuma conta foi criada.” e “Recibo simulado. Nenhum documento real foi gerado.”
 
 ### Erro
 
 - Título: “Não foi possível concluir o pagamento”.
-- Informar que nenhuma cobrança foi realizada e que o pedido continua reservado na simulação.
+- Texto da referência visual: nenhuma cobrança foi realizada e o pedido “continua reservado”. Não há pedido real fora da simulação.
 - Alerta: “Cartão não autorizado”. Texto de apoio: o banco recusou a transação; conferir dados e limite ou usar outro meio.
 - Resumo da tentativa: pedido `#NX-10482`, meio usado, total a pagar R$ 79,90.
 - “Tentar novamente”: volta para `/checkout` mantendo o meio selecionado.
@@ -143,9 +142,9 @@ Utilizar as rotas, com o shell `Guest`, o host do checkout e filhos:
 - `/checkout/success`
 - `/checkout/error`
 
-As rotas de resultado exigem um resultado válido em memória. Acesso direto ou atualização sem estado válido deve redirecionar para `/checkout`.
+As rotas de resultado exigem um resultado válido em memória, verificado por `CanActivate`. Acesso direto ou atualização sem estado válido deve redirecionar para `/checkout`.
 
-O estado deve distinguir `idle`, `processing`, `success` e `error`. O status `processing` permanece na página de checkout.
+O estado distingue `idle`, `processing`, `success` e `error`. O status `processing` permanece na página de checkout. O meio inicial é crédito, com os campos do cartão vazios.
 
 O estado compartilhado pode guardar meio de pagamento, bandeira, últimos 4 dígitos, valor, identificador `#NX-10482`, e-mail fictício e status. Não persistir o número completo do cartão ou CVV em serviços compartilhados, armazenamento do navegador, rotas ou logs.
 

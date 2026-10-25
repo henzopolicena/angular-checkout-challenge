@@ -21,7 +21,7 @@ Não utilizar NgRx, Bootstrap, kit de UI nem backend. Marcas (nexo, Visa, Master
 
 Organizar em quatro camadas, típicas de uma aplicação Angular enterprise, com identificadores em inglês. Aliases: `@core/*`, `@shared/*`, `@layout/*`, `@features/*`.
 
-- **core** — borda da aplicação: catálogo do produto e o simulador no lugar de um gateway.
+- **core** — borda da aplicação: catálogo do produto, o simulador no lugar de um gateway e os guards de rota.
 - **shared** — contrato (`CheckoutSnapshot`) e util de cartão, para a feature importar sem copiar regra.
 - **layout** — chrome do funil de conversão (`Guest`, header e footer). Não é feature nem UI genérica: um app logado teria outro shell.
 - **features** — telas e o estado do funil. O stepper fica em `features/checkout/`. Não sobe para `shared`.
@@ -35,6 +35,7 @@ src/app/
   core/
     constants/nexo-pro.ts
     services/payment-simulator.ts
+    guards/checkout-result.guard.ts
   shared/
     models/checkout.model.ts
     utils/card.ts
@@ -61,7 +62,7 @@ src/styles.css
 public/design/
 ```
 
-O checkout é um funil guest isolado (tipo Stripe Checkout), não o shell logado do produto. Cabeçalho e rodapé de conversão vivem em `layout/guest/`. O stepper existe uma vez no host `Checkout`. Pagamento, sucesso e erro são rotas filhas e só renderizam o miolo. Não há layout autenticado neste repositório. O `CheckoutStore` permanece na feature; guards futuros também. O restante da UI (resumo, formulário, Pix) entra em `features/checkout/`.
+O checkout é um funil guest isolado (tipo Stripe Checkout), não o shell logado do produto. Cabeçalho e rodapé de conversão vivem em `layout/guest/`. O stepper existe uma vez no host `Checkout`. Pagamento, sucesso e erro são rotas filhas e só renderizam o miolo. Não há layout autenticado neste repositório. O `CheckoutStore` permanece na feature. Guards de rota ficam em `core/guards/`. O restante da UI (resumo, formulário, Pix) entra em `features/checkout/`.
 
 ## 4. Estado e fluxo de pagamento
 
@@ -103,7 +104,7 @@ Utilizar Angular Router com o shell `Guest` e o host do checkout, rotas filhas l
 
 O indicador de etapas não é uma rota: Pedido não tem tela; pagamento e erro usam o passo Pagamento; sucesso usa Confirmação.
 
-As telas de resultado só poderão ser acessadas quando houver um resultado válido em memória, por meio de `CanActivate` ou `CanMatch` nos filhos `success` e `error`. Caso contrário, o usuário retorna ao checkout.
+As telas de resultado só poderão ser acessadas quando houver um resultado válido em memória. O `checkoutResultGuard` (`core/guards/`, `CanActivate`) cobre os filhos `success` e `error`. Sem o status correspondente no `CheckoutStore`, o usuário retorna ao checkout.
 
 “Tentar novamente” navega para `/checkout` mantendo o meio selecionado. “Escolher outro meio” navega para `/checkout` e limpa a seleção.
 
@@ -122,7 +123,7 @@ Seguir a decisão de qualidade de código em `docs/decisions.md` e o [style guid
 
 - Componentes apresentam; a regra de pagamento fica no `CheckoutStore` e no `PaymentSimulator`.
 - O store só muda por métodos; o snapshot é `asReadonly()`.
-- Um conceito por arquivo. `core`, `shared` e `layout` são camadas; as telas e o `CheckoutStore` ficam em `features/`.
+- Um conceito por arquivo. `core`, `shared` e `layout` são camadas; as telas e o `CheckoutStore` ficam em `features/`; os guards ficam em `core/guards/`.
 - `Guest` cuida do chrome, `Checkout` do stepper e do outlet, o miolo da tela da rota.
 
 Validar a aplicação por meio da matriz de verificações manuais da especificação, revisão de acessibilidade, inspeção do console, build de produção e conferência pixel-perfect contra `public/design/`.

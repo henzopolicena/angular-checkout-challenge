@@ -59,7 +59,7 @@ Utilizar as rotas `/`, `/checkout`, `/checkout/success` e `/checkout/error`. A r
 
 O `Guest` é o único shell: funil de conversão (nexo, “Checkout seguro”, rodapé institucional), sem avatar, menu de conta ou sidebar. Header e footer ficam em `layout/guest/components/`; uma área autenticada teria chrome próprio, sem reusar esses arquivos. O `Checkout` concentra o stepper. Pagamento, sucesso e erro são filhos lazy com `loadComponent`. O checkout não é o layout logado do produto; “Acessar meu espaço” no sucesso é destino futuro, não um envelope destas telas.
 
-As rotas de resultado exigem um resultado válido em memória, verificado por `CanActivate` ou `CanMatch` nos filhos `success` e `error`. Sem ele, o usuário retorna ao checkout.
+As rotas de resultado exigem um resultado válido em memória. O `checkoutResultGuard` em `core/guards/` (`CanActivate`) cobre os filhos `success` e `error`. Sem o status correspondente, o usuário retorna ao checkout.
 
 O status `processing` é apresentado no miolo de `/checkout`. Não existe rota de processamento.
 
@@ -73,7 +73,7 @@ Não implementar testes automatizados unitários ou end-to-end.
 
 Realizar as verificações manuais da matriz da especificação, incluindo pixel-perfect, validações, navegação, responsividade, acessibilidade WCAG 2.2 AA e build de produção.
 
-O scaffold do CLI ainda contém `npm test` e `tsconfig.spec.json`. Esses resíduos não fazem parte do escopo e não serão usados. A limpeza, se ocorrer, fica para um marco posterior de fundação ou entrega — não altera a decisão de não testar.
+O scaffold do CLI ainda contém `npm test` e `tsconfig.spec.json`. Esses resíduos não fazem parte do escopo, não serão usados na validação e não foram removidos neste marco.
 
 **Motivo:** manter o escopo acordado e verificar explicitamente os principais comportamentos.
 
@@ -117,7 +117,7 @@ Não criar interface extra, factory nem pasta `interfaces/`. `core/` e `shared/`
 
 ## 9. Organização em camadas
 
-Adotar o layout clássico Angular enterprise: `core/` (catálogo e simulador no lugar do gateway), `shared/` (modelo do snapshot e util de cartão), `layout/` (chrome do funil guest) e `features/` (Checkout e o `CheckoutStore`). Aliases `@core/*`, `@shared/*`, `@layout/*` e `@features/*`.
+Adotar o layout clássico Angular enterprise: `core/` (catálogo, simulador no lugar do gateway e `guards/`), `shared/` (modelo do snapshot e util de cartão), `layout/` (chrome do funil guest) e `features/` (Checkout e o `CheckoutStore`). Aliases `@core/*`, `@shared/*`, `@layout/*` e `@features/*`.
 
 É uma exceção consciente ao “só pasta de feature” do style guide Angular 22, para o recorte de avaliação técnica. Signals, `@Service()` e `inject()` continuam valendo. Header e footer ficam em `layout/`, não em `shared` nem em `features/`.
 

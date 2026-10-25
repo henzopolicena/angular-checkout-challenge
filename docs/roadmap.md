@@ -64,33 +64,33 @@
 
 ## Marco 5 — Resultados e navegação
 
-**Status:** Não iniciado
+**Status:** Concluído
 
-- [ ] Implementar o miolo das telas de sucesso e erro.
-- [ ] Implementar nova tentativa e troca de meio.
-- [ ] Tratar acesso aos filhos `success` e `error` sem estado válido (`CanActivate` / `CanMatch`).
-- [ ] Conferir pixel-perfect das telas de sucesso e erro contra `public/design/`.
+- [x] Implementar o miolo das telas de sucesso e erro.
+- [x] Implementar nova tentativa e troca de meio.
+- [x] Tratar acesso aos filhos `success` e `error` sem estado válido (`CanActivate`).
+- [x] Conferir pixel-perfect das telas de sucesso e erro contra `public/design/`.
 
 **Conclusão:** o fluxo completo funciona, não apresenta resultados sem uma tentativa válida e as telas de resultado correspondem à referência.
 
 ## Marco 6 — Revisão de qualidade
 
-**Status:** Não iniciado
+**Status:** Concluído
 
-- [ ] Refinar o visual e a responsividade, incluindo pixel-perfect das quatro composições.
-- [ ] Verificar acessibilidade e navegação por teclado.
-- [ ] Executar a matriz de verificações manuais da especificação.
-- [ ] Validar o build de produção e o console.
+- [x] Refinar o visual e a responsividade, incluindo pixel-perfect das quatro composições.
+- [x] Verificar acessibilidade e navegação por teclado.
+- [x] Executar a matriz de verificações manuais da especificação.
+- [x] Validar o build de produção e o console.
 
-**Conclusão:** verificações realizadas, problemas relevantes corrigidos e resultados registrados.
+**Conclusão:** matriz executada no Playwright, problemas de a11y/console corrigidos e build de produção passando. Cópia Figma de “assinatura ativa / recibo / pedido reservado” permanece como pendência de consistência com a simulação.
 
 ## Marco 7 — Documentação e entrega
 
-**Status:** Não iniciado
+**Status:** Concluído
 
-- [ ] Revisar o README de intenção já existente e alinhá-lo ao comportamento real.
-- [ ] Registrar limitações e instruções de execução.
-- [ ] Revisar o repositório e o histórico de commits.
-- [ ] Enviar a versão final ao GitHub.
+- [x] Revisar o README de intenção já existente e alinhá-lo ao comportamento real.
+- [x] Registrar limitações e instruções de execução.
+- [x] Revisar o repositório e o histórico de commits (sem criar commit nesta etapa).
+- [ ] Enviar a versão final ao GitHub — fora desta etapa (sem commit nem push). A cargo de quem for entregar.
 
-**Conclusão:** repositório pronto para avaliação e demonstração, com documentação em paridade com a aplicação.
+**Conclusão:** documentação em paridade com a aplicação e pronta para avaliação. A publicação no remoto não faz parte desta execução.
