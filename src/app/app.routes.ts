@@ -12,7 +12,8 @@ export const routes: Routes = [
         children: [
           {
             path: '',
-            loadComponent: () => import('./features/checkout/payment').then((m) => m.Payment),
+            loadComponent: () =>
+              import('./features/checkout/payment/payment').then((m) => m.Payment),
           },
           {
             path: 'success',
