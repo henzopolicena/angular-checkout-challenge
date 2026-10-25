@@ -2,6 +2,12 @@ import { NEXO_PRO } from '@core/constants/nexo-pro';
 import { type CardBrand } from '@shared/utils/card';
 
 export type PaymentMethod = 'credit' | 'debit' | 'pix';
+
+export const PAYMENT_METHOD_LABEL: Record<PaymentMethod, string> = {
+  credit: 'Crédito',
+  debit: 'Débito',
+  pix: 'Pix',
+};
 export type CheckoutStatus = 'idle' | 'processing' | 'success' | 'error';
 export type { CardBrand };
 
