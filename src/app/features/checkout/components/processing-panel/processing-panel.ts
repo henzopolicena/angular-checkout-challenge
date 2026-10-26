@@ -1,5 +1,6 @@
+import { NgOptimizedImage } from '@angular/common';
 import { Component, input } from '@angular/core';
-import { LucideLoaderCircle, LucideLock } from '@lucide/angular';
+import { LucideCircleAlert, LucideLoaderCircle } from '@lucide/angular';
 
 import { NEXO_PRO } from '@core/constants/nexo-pro';
 import { paymentCaption, type PaymentMethod } from '@shared/models/checkout.model';
@@ -7,7 +8,7 @@ import { formatBrl, type CardBrand } from '@shared/utils/card';
 
 @Component({
   selector: 'app-processing-panel',
-  imports: [LucideLoaderCircle, LucideLock],
+  imports: [NgOptimizedImage, LucideCircleAlert, LucideLoaderCircle],
   templateUrl: './processing-panel.html',
 })
 export class ProcessingPanel {

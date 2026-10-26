@@ -1,6 +1,6 @@
 import { NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject, signal } from '@angular/core';
-import { LucideArrowRight, LucideCheck } from '@lucide/angular';
+import { LucideArrowRight, LucideCheck, LucideCircleCheck, LucideReceipt } from '@lucide/angular';
 
 import { NEXO_PRO } from '@core/constants/nexo-pro';
 import { paymentCaption } from '@shared/models/checkout.model';
@@ -10,7 +10,7 @@ import { CheckoutStore } from '../checkout-store';
 
 @Component({
   selector: 'app-checkout-success',
-  imports: [NgOptimizedImage, LucideArrowRight, LucideCheck],
+  imports: [NgOptimizedImage, LucideArrowRight, LucideCheck, LucideCircleCheck, LucideReceipt],
   templateUrl: './checkout-success.html',
 })
 export class CheckoutSuccess {

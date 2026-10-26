@@ -69,7 +69,7 @@ export function isExpiryCurrentOrFuture(expiry: string, now = new Date()): boole
 }
 
 export function formatCardNumber(value: string): string {
-  const digits = digitsOnly(value).slice(0, 19);
+  const digits = digitsOnly(value).slice(0, 16);
   return digits.replace(/(\d{4})(?=\d)/g, '$1 ').trim();
 }
 
@@ -83,6 +83,10 @@ export function formatExpiry(value: string): string {
 
 export function formatCvv(value: string): string {
   return digitsOnly(value).slice(0, 4);
+}
+
+export function formatHolder(value: string): string {
+  return value.slice(0, 40);
 }
 
 export function formatBrl(amount: number): string {

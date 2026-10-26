@@ -100,7 +100,7 @@ O estado `processing` ocorre na própria rota `/checkout`, no card “Processand
 
 Textos da referência: “Estamos aguardando a confirmação. Isso pode levar alguns segundos.”, “Aguarde a confirmação” e “Não feche esta página nem envie o pagamento novamente.”
 
-Simular aproximadamente 1.200 ms, impedir envios duplicados e, ao terminar, navegar para sucesso ou erro.
+Simular aproximadamente 3.000 ms, impedir envios duplicados e, ao terminar, navegar para sucesso ou erro.
 
 ## 6. Simulação de pagamento
 

@@ -37,7 +37,7 @@ Implementar os pagamentos exclusivamente no frontend, com resultados determinís
 - Outros cartões válidos de bandeiras suportadas: aprovados.
 - Pix: aprovado após a confirmação explícita do usuário.
 
-O atraso de aproximadamente 1.200 ms será implementado no `PaymentSimulator` com `Promise` e `setTimeout`.
+O atraso de aproximadamente 3.000 ms será implementado no `PaymentSimulator` com `Promise` e `setTimeout`.
 
 Crédito e débito compartilham as mesmas regras e os mesmos cartões de teste.
 

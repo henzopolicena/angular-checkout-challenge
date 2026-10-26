@@ -1,7 +1,7 @@
 import { NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { LucideCircleAlert } from '@lucide/angular';
+import { LucideCircleAlert, LucideMessageCircle, LucideRefreshCw } from '@lucide/angular';
 
 import { NEXO_PRO } from '@core/constants/nexo-pro';
 import { paymentCaption } from '@shared/models/checkout.model';
@@ -11,7 +11,7 @@ import { CheckoutStore } from '../checkout-store';
 
 @Component({
   selector: 'app-checkout-error',
-  imports: [NgOptimizedImage, LucideCircleAlert],
+  imports: [NgOptimizedImage, LucideCircleAlert, LucideMessageCircle, LucideRefreshCw],
   templateUrl: './checkout-error.html',
 })
 export class CheckoutError {

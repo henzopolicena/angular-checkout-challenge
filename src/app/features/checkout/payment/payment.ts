@@ -58,7 +58,16 @@ export class Payment {
   });
 
   protected onSelectMethod(method: PaymentMethod): void {
+    const previous = this.store.snapshot().method;
     this.store.selectMethod(method);
+    if (previous !== this.store.snapshot().method) {
+      this.cardForm().reset({
+        number: '',
+        holder: '',
+        expiry: '',
+        cvv: '',
+      });
+    }
   }
 
   protected onPay(event: Event): void {

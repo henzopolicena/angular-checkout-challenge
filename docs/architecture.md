@@ -68,7 +68,7 @@ O checkout é um funil guest isolado (tipo Stripe Checkout), não o shell logado
 
 O `CheckoutStore` é responsável pelo estado compartilhado do checkout, utilizando Signals, somente em memória. Expõe o snapshot com `asReadonly()` e derivados com `computed()`. Dependências entram com `inject()`, não pelo construtor.
 
-O `PaymentSimulator` (`core/services`) simula os resultados de pagamento com atraso de aproximadamente 1.200 ms via `Promise` e `setTimeout`. É a borda no lugar de um gateway. Não usar `resource()`: pagar é um comando, não uma leitura reativa.
+O `PaymentSimulator` (`core/services`) simula os resultados de pagamento com atraso de aproximadamente 3.000 ms via `Promise` e `setTimeout`. É a borda no lugar de um gateway. Não usar `resource()`: pagar é um comando, não uma leitura reativa.
 
 Nomes sem sufixo `Service`, alinhados ao style guide Angular 22 (arquivo = classe).
 

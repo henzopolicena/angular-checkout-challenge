@@ -40,15 +40,6 @@
     Copiar código Pix
   </button>
 
-  @if (copyState() === 'copied') {
-    <p class="mt-2 text-center text-xs text-success-ink" role="status">Código copiado.</p>
-  }
-  @if (copyState() === 'failed') {
-    <p class="mt-2 text-center text-xs text-danger-ink" role="alert">
-      Não foi possível copiar automaticamente. Use o código exibido acima.
-    </p>
-  }
-
   <button
     type="button"
     class="mt-4 inline-flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-brand text-sm font-semibold text-surface"

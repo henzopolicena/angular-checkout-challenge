@@ -47,7 +47,7 @@ src/app/
 
 `CheckoutStore` guarda o snapshot em memória (`idle | processing | success | error`) e expõe `asReadonly()`. Só muda por métodos (`selectMethod`, `payWithCard`, `payWithPix`, `retry`, `chooseOtherMethod`). Não conhece o Router.
 
-`PaymentSimulator` aplica o atraso de ~1.200 ms (`Promise` + `setTimeout`) e a regra determinística do cartão. Não conhece o snapshot.
+`PaymentSimulator` aplica o atraso de ~3.000 ms (`Promise` + `setTimeout`) e a regra determinística do cartão. Não conhece o snapshot.
 
 ```text
 UI  →  CheckoutStore  →  PaymentSimulator
@@ -75,7 +75,7 @@ O passo **Pedido** do indicador de etapas não é rota. Pagamento e erro usam o 
 1. **Entrada.** `/` redireciona para `/checkout`. O meio inicial é **crédito**; os campos começam vazios.
 2. **Método.** Crédito, débito ou Pix. Crédito e débito compartilham o mesmo formulário, as mesmas validações e os mesmos cartões de teste. Débito só troca o título do fieldset para “Cartão de débito”.
 3. **Preenchimento e validação.** Signal Forms no cartão. O botão **Pagar R$ 79,90** permanece desabilitado enquanto o formulário for inválido.
-4. **Processamento.** Na própria `/checkout` (“Processando seu pagamento”, ~1.200 ms). Não existe rota de processamento. Envios duplicados são ignorados (`status !== 'idle'`).
+4. **Processamento.** Na própria `/checkout` (“Processando seu pagamento”, ~3.000 ms). Não existe rota de processamento. Envios duplicados são ignorados (`status !== 'idle'`).
 5. **Aprovação ou recusa.** Após o atraso, a aplicação navega para `/checkout/success` ou `/checkout/error`.
 6. **Pix.** QR Code estático (`pix-qr.svg`), código copia e cola `000201.NEXO-PRO.7990.DEMO`, **Copiar código Pix** (`navigator.clipboard`, com mensagem se a cópia falhar) e **Concluir pagamento**. A simulação só começa depois dessa confirmação e sempre aprova.
 7. **Sucesso.** Resumo da tentativa em memória. **Acessar meu espaço** e **Ver recibo** não abrem rota nova: avisos locais deixam explícito que espaço e recibo são simulados.
@@ -206,7 +206,7 @@ Resumo das decisões já registradas em [`docs/decisions.md`](docs/decisions.md)
 - **Tailwind CSS em vez de Bootstrap.** O desafio pede Tailwind ou Bootstrap. Tailwind foi escolhido para controlar utilitários e tokens (`@theme` em `src/styles.css`) e reproduzir o layout de `public/design/` sem um kit de componentes.
 - **Signals em vez de NgRx.** O estado deste checkout é pequeno e local ao funil (`idle | processing | success | error`). Signals no `CheckoutStore` bastam; NgRx acrescentaria complexidade sem necessidade.
 - **Signal Forms.** Os campos de cartão usam `@angular/forms/signals`, não Reactive Forms.
-- **Sem gateway nem backend.** O desafio pede uma experiência de checkout no frontend. O pagamento é simulado no `PaymentSimulator` (atraso de ~1.200 ms, cartões de teste determinísticos). Não há cobrança real.
+- **Sem gateway nem backend.** O desafio pede uma experiência de checkout no frontend. O pagamento é simulado no `PaymentSimulator` (atraso de ~3.000 ms, cartões de teste determinísticos). Não há cobrança real.
 - **Sem testes automatizados.** O escopo acordado é verificação manual (matriz da especificação, acessibilidade, console e build de produção). `npm test` e `tsconfig.spec.json` são resíduo do CLI e não fazem parte da validação.
 - **Sem persistência de PAN/CVV.** Número completo do cartão e CVV não entram no store, em `localStorage`/`sessionStorage`, rotas ou logs. Só meio, bandeira, últimos 4 dígitos e status ficam em memória, para limitar exposição e manter o fluxo previsível.
 

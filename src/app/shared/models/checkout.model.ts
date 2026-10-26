@@ -24,7 +24,7 @@ export function paymentCaption(
   }
 
   const brandLabel = brand === 'visa' ? 'Visa' : 'Mastercard';
-  return `${label} · ${brandLabel} •••• ${last4}`;
+  return `${label} · ${brandLabel} ••••\u00a0${last4}`;
 }
 
 export type CheckoutStatus = 'idle' | 'processing' | 'success' | 'error';

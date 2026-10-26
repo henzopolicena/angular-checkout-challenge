@@ -4,7 +4,7 @@ import { digitsOnly } from '@shared/utils/card';
 
 export type SimulationOutcome = 'approved' | 'declined';
 
-const PROCESSING_DELAY_MS = 1200;
+const PROCESSING_DELAY_MS = 3000;
 const DECLINED_CARD_DIGITS = '4000000000000002';
 
 function delay(ms: number): Promise<void> {
