@@ -1,24 +1,17 @@
-<p align="center">
-  <img src="public/nexo-mark.svg" alt="Nexo" width="72" height="72">
-</p>
+![Nexo](public/nexo-mark.svg)
 
 # Nexo Pro — Checkout
 
-<p align="center">
-  Checkout frontend da <strong>Nexo</strong> para o plano <strong>Nexo Pro</strong> (mensal, 1 usuário, R$ 79,90).<br>
-  Angular 22 · Tailwind CSS 4 · crédito, débito e Pix simulados no navegador.
-</p>
+Checkout frontend da **Nexo** para o plano **Nexo Pro** (mensal, 1 usuário, R$ 79,90).  
+Angular 22 · Tailwind CSS 4 · crédito, débito e Pix simulados no navegador.
 
-A aplicação está implementada e pronta para avaliação. Pagamentos, recibo, conta e renovação são simulados. Não há área autenticada neste repositório.
+![Checkout com cartão de crédito — desktop e mobile](public/design/checkout-credit.png)
 
-<p align="center">
-  <img src="public/design/checkout-credit.png" alt="Checkout com cartão de crédito — desktop e mobile" width="920">
-</p>
-<p align="center"><sub>Referência visual — pagamento com crédito (desktop e mobile)</sub></p>
+Referência visual — pagamento com crédito (desktop e mobile)
 
 ## Visão geral
 
-O objetivo é um funil de checkout responsivo, com validação de cartão (Signal Forms), três meios de pagamento simulados e telas de resultado. O estado do funil vive no `CheckoutStore` (memória). O pagamento é deliberadamente simulado pelo `PaymentSimulator`: não há gateway, backend nem cobrança real.
+O objetivo é um funil de checkout responsivo, com validação de cartão, três meios de pagamento simulados e telas de resultado. O estado do funil vive no em memória. O pagamento é deliberadamente simulado: não há gateway, backend nem cobrança real.
 
 ## Stack
 
@@ -32,7 +25,7 @@ Versões confirmadas no `package.json`:
 - Angular Signals
 - Lucide (`@lucide/angular` ^1.61.0)
 
-Não há NgRx, Bootstrap, kit de UI, backend nem pasta de interfaces. O Prettier (^3.8.1) entra só como formatação. RxJS permanece como dependência do Angular, não como estado da aplicação.
+Não há NgRx, Bootstrap, kit de UI, backend nem pasta de interfaces. O Prettier (^3.8.1) entra só como formatação.
 
 ## Arquitetura
 
@@ -47,14 +40,14 @@ src/app/
                  CheckoutStore, pagamento, sucesso, erro e UI do funil
 ```
 
-- **`core/`** — borda da aplicação: catálogo do produto (`nexo-pro.ts`), o `PaymentSimulator` no lugar de um gateway e o `checkoutResultGuard`.
-- **`shared/`** — contrato (`CheckoutSnapshot`) e util de cartão, para a feature importar sem copiar regra.
-- **`layout/`** — chrome do funil guest (`Guest`, header e footer). Não é o shell logado do produto.
-- **`features/checkout/`** — telas e o estado do funil. O stepper fica no host `Checkout`. Pagamento, sucesso e erro são rotas filhas.
+- `core/` — borda da aplicação: catálogo do produto (`nexo-pro.ts`), o `PaymentSimulator` no lugar de um gateway e o `checkoutResultGuard`.
+- `shared/` — contrato (`CheckoutSnapshot`) e util de cartão, para a feature importar sem copiar regra.
+- `layout/` — chrome do funil guest (`Guest`, header e footer). Não é o shell logado do produto.
+- `features/checkout/` — telas e o estado do funil. O stepper fica no host `Checkout`. Pagamento, sucesso e erro são rotas filhas.
 
-**`CheckoutStore`** guarda o snapshot em memória (`idle | processing | success | error`) e expõe `asReadonly()`. Só muda por métodos (`selectMethod`, `payWithCard`, `payWithPix`, `retry`, `chooseOtherMethod`). Não conhece o Router.
+`CheckoutStore` guarda o snapshot em memória (`idle | processing | success | error`) e expõe `asReadonly()`. Só muda por métodos (`selectMethod`, `payWithCard`, `payWithPix`, `retry`, `chooseOtherMethod`). Não conhece o Router.
 
-**`PaymentSimulator`** aplica o atraso de ~1.200 ms (`Promise` + `setTimeout`) e a regra determinística do cartão. Não conhece o snapshot.
+`PaymentSimulator` aplica o atraso de ~1.200 ms (`Promise` + `setTimeout`) e a regra determinística do cartão. Não conhece o snapshot.
 
 ```text
 UI  →  CheckoutStore  →  PaymentSimulator
@@ -89,15 +82,13 @@ O passo **Pedido** do indicador de etapas não é rota. Pagamento e erro usam o 
 8. **Erro.** Motivo “Cartão não autorizado”. **Tentar novamente** volta a `/checkout` com o mesmo meio e campos vazios. **Escolher outro meio** volta a `/checkout` sem meio selecionado.
 9. **Proteção das rotas de resultado.** `checkoutResultGuard` (`CanActivate`) exige o status correspondente no `CheckoutStore`. Acesso direto, refresh ou URL sem esse estado redireciona para `/checkout`.
 
-<p align="center">
-  <img src="public/design/success.png" alt="Pagamento confirmado — desktop e mobile" width="920">
-</p>
-<p align="center"><sub>Referência visual — sucesso (desktop e mobile)</sub></p>
+![Pagamento confirmado — desktop e mobile](public/design/success.png)
 
-<p align="center">
-  <img src="public/design/error.png" alt="Falha de pagamento — desktop e mobile" width="920">
-</p>
-<p align="center"><sub>Referência visual — recusa (desktop e mobile)</sub></p>
+Referência visual — sucesso (desktop e mobile)
+
+![Falha de pagamento — desktop e mobile](public/design/error.png)
+
+Referência visual — recusa (desktop e mobile)
 
 ## Validações
 
@@ -113,10 +104,9 @@ Implementadas em `card.schema.ts` (Signal Forms) e `shared/utils/card.ts`. Créd
 
 Estados do funil: `idle`, `processing`, `success`, `error`. Com o cartão válido, o formulário exibe “Dados do cartão preenchidos”. Número fora das bandeiras suportadas é inválido mesmo com Luhn correto.
 
-<p align="center">
-  <img src="public/design/payment-states.png" alt="Pix, validação de campos e processamento" width="920">
-</p>
-<p align="center"><sub>Referência visual — Pix, validação e processamento</sub></p>
+![Pix, validação de campos e processamento](public/design/payment-states.png)
+
+Referência visual — Pix, validação e processamento
 
 ## Simulação de pagamento
 
@@ -144,7 +134,7 @@ Só informações necessárias ao fluxo ficam em memória: meio, bandeira, últi
 
 ## Responsividade e acessibilidade
 
-Cuidados realmente implementados (sem resultado de auditoria automatizada neste README):
+Cuidados realmente implementados:
 
 - Layout desktop em duas colunas; no mobile, o resumo vem primeiro e o rodapé fica visível ao final da página, centralizado.
 - HTML com `lang="pt-BR"`.
@@ -238,24 +228,25 @@ Limitações adicionais do recorte:
 - Não há persistência de transações: o estado some ao recarregar a página.
 - Os rótulos do rodapé, “Termos de uso”, “Política de privacidade” e “Fale com a gente” não abrem páginas reais.
 - A cópia das telas de resultado segue a referência visual (“assinatura ativa”, “Enviamos o recibo”, “pedido continua reservado”), embora nada disso exista fora da simulação. Os botões de sucesso deixam isso explícito com avisos locais.
-- Não há testes automatizados unitários ou end-to-end.
 
 ## Qualidade e validação
 
-A qualidade deste recorte é verificação manual (matriz da especificação), revisão de acessibilidade no markup, inspeção do console e `npm run build`.
+Auditoria Lighthouse em `/checkout` (26/10/2026), build de produção. Capturas em [`docs/assets/`](docs/assets/).
 
-> Resultados do Lighthouse serão adicionados após a auditoria final de performance, acessibilidade e boas práticas.
+| | Performance | Accessibility | Best Practices | SEO |
+| --- | ---: | ---: | ---: | ---: |
+| Desktop | 99 | 100 | 100 | 100 |
+| Mobile | 94 | 100 | 100 | 100 |
+
+![Lighthouse desktop — /checkout](docs/assets/lighthouse-desktop.png)
+
+![Lighthouse mobile — /checkout](docs/assets/lighthouse-mobile.png)
 
 ## Documentação
 
 - [`docs/specification.md`](docs/specification.md) — requisitos, fluxos e matriz manual.
 - [`docs/architecture.md`](docs/architecture.md) — pastas, estado, rotas e limitações técnicas.
 - [`docs/decisions.md`](docs/decisions.md) — decisões de stack e organização.
-- [`docs/roadmap.md`](docs/roadmap.md) — marcos de desenvolvimento.
-
-## Status
-
-Pronto para avaliação. A publicação deste repositório em um remoto fica a cargo de quem for entregar; esta documentação não inclui commit nem push.
 
 ## Licença
 

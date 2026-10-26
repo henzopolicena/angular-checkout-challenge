@@ -16,7 +16,7 @@
       <div class="relative">
         <input
           id="card-number"
-          class="h-11 w-full rounded-lg border border-line bg-surface px-3 pr-10 text-sm text-ink outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand data-[tone=invalid]:border-danger data-[tone=invalid]:bg-danger-soft data-[tone=invalid]:text-danger data-[tone=valid]:border-success"
+          class="h-11 w-full rounded-lg border border-line bg-surface px-3 pr-10 text-sm text-ink outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand data-[tone=invalid]:border-danger data-[tone=invalid]:bg-danger-soft data-[tone=invalid]:text-danger-ink data-[tone=valid]:border-success"
           type="text"
           inputmode="numeric"
           autocomplete="cc-number"
@@ -37,7 +37,7 @@
         }
       </div>
       @if (invalid('number')) {
-        <p id="card-number-error" class="mt-1 text-xs text-danger" role="alert">
+        <p id="card-number-error" class="mt-1 text-xs text-danger-ink" role="alert">
           {{ message('number') }}
         </p>
       }
@@ -48,7 +48,7 @@
       <div class="relative">
         <input
           id="card-holder"
-          class="h-11 w-full rounded-lg border border-line bg-surface px-3 pr-10 text-sm text-ink uppercase outline-none placeholder:normal-case focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand data-[tone=invalid]:border-danger data-[tone=invalid]:bg-danger-soft data-[tone=invalid]:text-danger data-[tone=valid]:border-success"
+          class="h-11 w-full rounded-lg border border-line bg-surface px-3 pr-10 text-sm text-ink uppercase outline-none placeholder:normal-case focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand data-[tone=invalid]:border-danger data-[tone=invalid]:bg-danger-soft data-[tone=invalid]:text-danger-ink data-[tone=valid]:border-success"
           type="text"
           autocomplete="cc-name"
           placeholder="Nome completo"
@@ -67,7 +67,7 @@
         }
       </div>
       @if (invalid('holder')) {
-        <p id="card-holder-error" class="mt-1 text-xs text-danger" role="alert">
+        <p id="card-holder-error" class="mt-1 text-xs text-danger-ink" role="alert">
           {{ message('holder') }}
         </p>
       }
@@ -79,7 +79,7 @@
         <div class="relative">
           <input
             id="card-expiry"
-            class="h-11 w-full rounded-lg border border-line bg-surface px-3 pr-10 text-sm text-ink outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand data-[tone=invalid]:border-danger data-[tone=invalid]:bg-danger-soft data-[tone=invalid]:text-danger data-[tone=valid]:border-success"
+            class="h-11 w-full rounded-lg border border-line bg-surface px-3 pr-10 text-sm text-ink outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand data-[tone=invalid]:border-danger data-[tone=invalid]:bg-danger-soft data-[tone=invalid]:text-danger-ink data-[tone=valid]:border-success"
             type="text"
             inputmode="numeric"
             autocomplete="cc-exp"
@@ -100,7 +100,7 @@
           }
         </div>
         @if (invalid('expiry')) {
-          <p id="card-expiry-error" class="mt-1 text-xs text-danger" role="alert">
+          <p id="card-expiry-error" class="mt-1 text-xs text-danger-ink" role="alert">
             {{ message('expiry') }}
           </p>
         }
@@ -110,7 +110,7 @@
         <div class="relative">
           <input
             id="card-cvv"
-            class="h-11 w-full rounded-lg border border-line bg-surface px-3 pr-10 text-sm text-ink outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand data-[tone=invalid]:border-danger data-[tone=invalid]:bg-danger-soft data-[tone=invalid]:text-danger data-[tone=valid]:border-success"
+            class="h-11 w-full rounded-lg border border-line bg-surface px-3 pr-10 text-sm text-ink outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand data-[tone=invalid]:border-danger data-[tone=invalid]:bg-danger-soft data-[tone=invalid]:text-danger-ink data-[tone=valid]:border-success"
             type="password"
             inputmode="numeric"
             autocomplete="cc-csc"
@@ -131,7 +131,7 @@
           }
         </div>
         @if (invalid('cvv')) {
-          <p id="card-cvv-error" class="mt-1 text-xs text-danger" role="alert">
+          <p id="card-cvv-error" class="mt-1 text-xs text-danger-ink" role="alert">
             {{ message('cvv') }}
           </p>
         }
@@ -140,7 +140,7 @@
   </div>
 
   @if (cardForm()().valid()) {
-    <p class="mt-4 flex items-center gap-2 text-sm font-medium text-success">
+    <p class="mt-4 flex items-center gap-2 text-sm font-medium text-success-ink">
       <svg lucideCheck [size]="16" [strokeWidth]="3" aria-hidden="true"></svg>
       Dados do cartão preenchidos
     </p>
