@@ -1,0 +1,52 @@
+<fieldset class="border-0 p-0 m-0">
+  <legend class="mb-3 text-lg font-semibold text-ink">Como você quer pagar?</legend>
+  <div class="grid grid-cols-3 gap-1.5 sm:gap-2">
+    @for (option of options; track option.id) {
+      <label
+        class="relative flex min-h-[4.5rem] cursor-pointer flex-col items-start justify-start gap-1 rounded-xl border border-line bg-surface px-2.5 py-3 pr-6 text-left text-xs font-medium text-ink has-[:checked]:border-brand has-[:checked]:bg-brand-soft has-[:checked]:text-brand has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-brand sm:min-h-20 sm:px-3 sm:py-3.5 sm:pr-8 md:text-sm"
+        [attr.for]="'method-' + option.id"
+      >
+        <input
+          class="absolute top-1.5 right-1.5 size-3.5 accent-brand sm:top-2 sm:right-2 sm:size-4"
+          type="radio"
+          name="payment-method"
+          [id]="'method-' + option.id"
+          [value]="option.id"
+          [checked]="method() === option.id"
+          (change)="selectMethod.emit(option.id)"
+        />
+        @switch (option.id) {
+          @case ('credit') {
+            <svg lucideCreditCard [size]="18" aria-hidden="true"></svg>
+          }
+          @case ('debit') {
+            <svg lucideWalletCards [size]="18" aria-hidden="true"></svg>
+          }
+          @case ('pix') {
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="18"
+              height="18"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.75"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="size-[18px] shrink-0 overflow-visible"
+              aria-hidden="true"
+            >
+              <path d="M9 4.5 12 2l3 2.5" />
+              <path d="M9 19.5 12 22l3-2.5" />
+              <path d="M4.5 9 2 12l2.5 3" />
+              <path d="M19.5 9 22 12l-2.5 3" />
+              <path d="m8 8 8 8" stroke-width="1" opacity="0.4" />
+              <path d="m16 8-8 8" stroke-width="1" opacity="0.4" />
+            </svg>
+          }
+        }
+        {{ option.label }}
+      </label>
+    }
+  </div>
+</fieldset>

@@ -1,0 +1,42 @@
+<nav class="pt-6 md:pt-8" aria-label="Etapas do checkout">
+  <div class="mx-auto w-full min-w-0 max-w-shell px-5 md:px-8">
+    <ol class="flex min-w-0 items-start sm:items-center">
+      @for (item of steps; track item.id; let index = $index) {
+        <li
+          class="flex min-w-0 items-start not-last:flex-1 not-last:after:mx-2 not-last:after:mt-3 not-last:after:h-px not-last:after:min-w-2 not-last:after:flex-1 not-last:after:bg-line not-last:after:content-[''] sm:items-center sm:not-last:after:mx-3 sm:not-last:after:mt-0 sm:not-last:after:min-w-4"
+          [attr.aria-current]="statusOf(item.id) === 'current' ? 'step' : null"
+          [attr.aria-label]="stepLabel(item.label, item.id)"
+        >
+          <span class="flex min-w-0 flex-col items-center gap-1 sm:flex-row sm:gap-2">
+            <span
+              class="flex size-6 shrink-0 items-center justify-center rounded-full text-[0.65rem] font-semibold md:size-7 md:text-xs"
+              [class.bg-success-soft]="statusOf(item.id) === 'completed'"
+              [class.text-success-ink]="statusOf(item.id) === 'completed'"
+              [class.bg-brand]="statusOf(item.id) === 'current'"
+              [class.text-surface]="statusOf(item.id) === 'current'"
+              [class.bg-surface]="statusOf(item.id) === 'upcoming'"
+              [class.text-muted]="statusOf(item.id) === 'upcoming'"
+              [class.ring-1]="statusOf(item.id) === 'upcoming'"
+              [class.ring-line]="statusOf(item.id) === 'upcoming'"
+              aria-hidden="true"
+            >
+              @if (statusOf(item.id) === 'completed') {
+                <svg lucideCheck [size]="12" [strokeWidth]="3"></svg>
+              } @else {
+                {{ index + 1 }}
+              }
+            </span>
+            <span
+              class="max-w-full text-center text-[0.65rem] leading-tight font-medium sm:text-left sm:text-[0.7rem] sm:leading-normal sm:whitespace-nowrap md:text-sm"
+              [class.text-brand]="statusOf(item.id) === 'current'"
+              [class.text-muted]="statusOf(item.id) !== 'current'"
+              aria-hidden="true"
+            >
+              {{ item.label }}
+            </span>
+          </span>
+        </li>
+      }
+    </ol>
+  </div>
+</nav>

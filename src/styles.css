@@ -1,1 +1,57 @@
-/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --color-page: #f6f7fb;
+  --color-surface: #ffffff;
+  --color-brand: #5750cf;
+  --color-brand-soft: #efeefa;
+  --color-ink: #24273c;
+  --color-muted: #6f7180;
+  --color-line: #e8e9f2;
+  --color-success: #22c17a;
+  --color-success-ink: #147a4a;
+  --color-success-soft: #e8f8f0;
+  --color-danger: #e5484d;
+  --color-danger-ink: #b42318;
+  --color-danger-soft: #fdecee;
+
+  --radius-mark: 0.625rem;
+  --max-width-shell: 86rem;
+  --max-width-chrome: 86rem;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-page);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+  }
+
+  button:enabled,
+  [type='button']:enabled,
+  [type='submit']:enabled,
+  a[href],
+  label,
+  input[type='radio'],
+  input[type='checkbox'],
+  summary {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  [type='button']:disabled,
+  [type='submit']:disabled {
+    cursor: not-allowed;
+  }
+}

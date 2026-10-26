@@ -1,6 +1,6 @@
 {
   "name": "angular-checkout-challenge",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -17,7 +17,11 @@
     "@angular/forms": "^22.2.0",
     "@angular/platform-browser": "^22.2.0",
     "@angular/router": "^22.2.0",
+    "@lucide/angular": "^1.61.0",
+    "@tailwindcss/postcss": "^4.3.3",
+    "postcss": "^8.5.31",
     "rxjs": "~7.8.0",
+    "tailwindcss": "^4.3.3",
     "tslib": "^2.3.0"
   },
   "devDependencies": {

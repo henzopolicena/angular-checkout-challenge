@@ -1,0 +1,172 @@
+<fieldset class="mt-5 border-0 p-0">
+  <legend class="text-base font-semibold text-ink">{{ title() }}</legend>
+
+  <div class="mt-4 space-y-4">
+    <div>
+      <div class="mb-1.5 flex items-center justify-between gap-3">
+        <label class="text-sm text-ink" for="card-number">Número do cartão</label>
+        @if (brandSrc(); as mark) {
+          @if (mark === 'visa-mark.svg') {
+            <img ngSrc="visa-mark.svg" width="40" height="13" alt="" class="h-3.5 w-auto" />
+          } @else {
+            <img ngSrc="mastercard-mark.svg" width="40" height="31" alt="" class="h-3.5 w-auto" />
+          }
+        }
+      </div>
+      <div class="relative">
+        <input
+          id="card-number"
+          class="h-11 w-full overflow-hidden rounded-lg border border-line bg-surface px-3 pr-10 text-sm text-ink outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand data-[tone=invalid]:border-danger data-[tone=invalid]:bg-danger-soft data-[tone=invalid]:text-danger-ink data-[tone=valid]:border-success"
+          type="text"
+          inputmode="numeric"
+          autocomplete="cc-number"
+          placeholder="4242 4242 4242 4242"
+          [attr.data-tone]="tone('number')"
+          [attr.aria-invalid]="invalid('number')"
+          [attr.aria-describedby]="invalid('number') ? 'card-number-error' : null"
+          [formField]="cardForm().number"
+          (beforeinput)="rejectNonDigits($event)"
+          (input)="mask('number', $event)"
+        />
+        @if (invalid('number')) {
+          <svg
+            lucideCircleAlert
+            class="pointer-events-none absolute top-1/2 right-3 size-4 -translate-y-1/2 text-danger"
+            [size]="16"
+            aria-hidden="true"
+          ></svg>
+        }
+      </div>
+      @if (invalid('number')) {
+        <p id="card-number-error" class="mt-1 text-xs text-danger-ink" role="alert">
+          {{ message('number') }}
+        </p>
+      }
+    </div>
+
+    <div>
+      <label class="mb-1.5 block text-sm text-ink" for="card-holder">Nome no cartão</label>
+      <div class="relative">
+        <input
+          id="card-holder"
+          class="h-11 w-full rounded-lg border border-line bg-surface px-3 pr-10 text-sm text-ink uppercase outline-none placeholder:normal-case focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand data-[tone=invalid]:border-danger data-[tone=invalid]:bg-danger-soft data-[tone=invalid]:text-danger-ink data-[tone=valid]:border-success"
+          type="text"
+          autocomplete="cc-name"
+          placeholder="Nome completo"
+          [attr.data-tone]="tone('holder')"
+          [attr.aria-invalid]="invalid('holder')"
+          [attr.aria-describedby]="invalid('holder') ? 'card-holder-error' : null"
+          [formField]="cardForm().holder"
+          (input)="mask('holder', $event)"
+        />
+        @if (invalid('holder')) {
+          <svg
+            lucideCircleAlert
+            class="pointer-events-none absolute top-1/2 right-3 size-4 -translate-y-1/2 text-danger"
+            [size]="16"
+            aria-hidden="true"
+          ></svg>
+        }
+      </div>
+      @if (invalid('holder')) {
+        <p id="card-holder-error" class="mt-1 text-xs text-danger-ink" role="alert">
+          {{ message('holder') }}
+        </p>
+      }
+    </div>
+
+    <div class="grid grid-cols-2 gap-3">
+      <div>
+        <label class="mb-1.5 block text-sm text-ink" for="card-expiry">Validade</label>
+        <div class="relative">
+          <input
+            id="card-expiry"
+            class="h-11 w-full rounded-lg border border-line bg-surface px-3 pr-10 text-sm text-ink outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand data-[tone=invalid]:border-danger data-[tone=invalid]:bg-danger-soft data-[tone=invalid]:text-danger-ink data-[tone=valid]:border-success"
+            type="text"
+            inputmode="numeric"
+            autocomplete="cc-exp"
+            placeholder="MM/AA"
+            [attr.data-tone]="tone('expiry')"
+            [attr.aria-invalid]="invalid('expiry')"
+            [attr.aria-describedby]="invalid('expiry') ? 'card-expiry-error' : null"
+            [formField]="cardForm().expiry"
+            (beforeinput)="rejectNonDigits($event)"
+            (input)="mask('expiry', $event)"
+          />
+          @if (invalid('expiry')) {
+            <svg
+              lucideCircleAlert
+              class="pointer-events-none absolute top-1/2 right-3 size-4 -translate-y-1/2 text-danger"
+              [size]="16"
+              aria-hidden="true"
+            ></svg>
+          }
+        </div>
+        @if (invalid('expiry')) {
+          <p id="card-expiry-error" class="mt-1 text-xs text-danger-ink" role="alert">
+            {{ message('expiry') }}
+          </p>
+        }
+      </div>
+      <div>
+        <label class="mb-1.5 block text-sm text-ink" for="card-cvv">CVV</label>
+        <div class="relative">
+          <button
+            type="button"
+            class="peer/cvv absolute top-1/2 left-3 z-10 -translate-y-1/2 text-muted"
+            aria-describedby="cvv-help"
+            aria-label="O que é o CVV"
+          >
+            <svg lucideCircleQuestionMark [size]="16" aria-hidden="true"></svg>
+          </button>
+          <span
+            id="cvv-help"
+            role="tooltip"
+            class="pointer-events-none absolute bottom-[calc(100%+0.5rem)] left-0 z-20 w-full rounded-lg bg-ink px-3 py-2 text-left text-xs font-normal tracking-normal text-surface opacity-0 shadow-sm transition-opacity peer-hover/cvv:opacity-100 peer-focus-visible/cvv:opacity-100 sm:left-auto sm:right-0 sm:w-52"
+          >
+            Código de 3 ou 4 dígitos no verso do cartão.
+          </span>
+          <input
+            id="card-cvv"
+            class="h-11 w-full rounded-lg border border-line bg-surface py-0 pr-10 pl-10 text-sm tracking-[0.35em] text-ink outline-none [-webkit-text-security:disc] [text-security:disc] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand data-[tone=invalid]:border-danger data-[tone=invalid]:bg-danger-soft data-[tone=invalid]:text-danger-ink data-[tone=valid]:border-success"
+            type="password"
+            inputmode="numeric"
+            autocomplete="cc-csc"
+            placeholder="***"
+            [attr.data-tone]="tone('cvv')"
+            [attr.aria-invalid]="invalid('cvv')"
+            [attr.aria-describedby]="invalid('cvv') ? 'cvv-help card-cvv-error' : 'cvv-help'"
+            [formField]="cardForm().cvv"
+            (beforeinput)="rejectNonDigits($event)"
+            (input)="mask('cvv', $event)"
+          />
+          @if (invalid('cvv')) {
+            <svg
+              lucideCircleAlert
+              class="pointer-events-none absolute top-1/2 right-3 size-4 -translate-y-1/2 text-danger"
+              [size]="16"
+              aria-hidden="true"
+            ></svg>
+          }
+        </div>
+        @if (invalid('cvv')) {
+          <p id="card-cvv-error" class="mt-1 text-xs text-danger-ink" role="alert">
+            {{ message('cvv') }}
+          </p>
+        }
+      </div>
+    </div>
+  </div>
+
+  @if (cardForm()().valid()) {
+    <p class="mt-4 flex items-center gap-2 text-sm font-medium text-success-ink">
+      <span
+        class="inline-flex size-5 shrink-0 items-center justify-center rounded-full bg-success-soft"
+        aria-hidden="true"
+      >
+        <svg lucideCheck class="text-success-ink" [size]="12" [strokeWidth]="3"></svg>
+      </span>
+      Dados do cartão preenchidos
+    </p>
+  }
+</fieldset>

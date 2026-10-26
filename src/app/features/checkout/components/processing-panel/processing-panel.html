@@ -1,0 +1,57 @@
+<div class="mx-auto max-w-[42rem]">
+  <section
+    class="rounded-2xl border border-line bg-surface px-6 py-10 text-center shadow-sm md:px-10 md:py-12"
+    role="status"
+    aria-busy="true"
+  >
+    <div class="mx-auto flex size-20 items-center justify-center rounded-full bg-brand-soft">
+      <svg
+        lucideLoaderCircle
+        class="animate-spin text-brand"
+        [size]="40"
+        [strokeWidth]="2"
+        aria-hidden="true"
+      ></svg>
+    </div>
+
+    <h1 class="mt-5 text-xl font-semibold leading-tight tracking-tight text-ink md:text-[1.625rem]">
+      Processando seu pagamento
+    </h1>
+    <p class="mx-auto mt-2 max-w-md text-sm text-muted">
+      Estamos aguardando a confirmação. Isso pode levar alguns segundos.
+    </p>
+
+    <div class="mt-8 text-left">
+      <div class="flex items-center gap-3">
+        <img ngSrc="nexo-pro-mark.svg" width="40" height="40" alt="" class="size-10 rounded-mark" />
+        <div>
+          <p class="font-semibold text-ink">{{ catalog.name }}</p>
+          <p class="text-xs text-muted">{{ catalog.billing }} · {{ catalog.seats }} usuário</p>
+        </div>
+      </div>
+
+      <dl class="mt-4 space-y-2.5 border-t border-line pt-4 text-sm">
+        <div class="flex justify-between gap-4">
+          <dt class="shrink-0 text-muted">Meio usado</dt>
+          <dd class="min-w-0 text-right font-medium text-ink">{{ methodCaption() }}</dd>
+        </div>
+        <div class="flex items-baseline justify-between gap-4">
+          <dt class="font-semibold text-ink">Total</dt>
+          <dd class="text-xl font-black text-ink">{{ total }}</dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="mt-6 flex gap-3 rounded-xl bg-brand-soft px-4 py-3 text-left">
+      <svg lucideCircleAlert class="mt-0.5 shrink-0 text-brand" [size]="18" aria-hidden="true"></svg>
+      <div>
+        <p class="text-sm font-semibold text-brand">Aguarde a confirmação</p>
+        <p class="mt-1 text-sm text-ink">
+          Não feche esta página nem envie o pagamento novamente.
+        </p>
+      </div>
+    </div>
+
+    <p class="mt-6 text-xs text-muted">Estado de processamento simulado</p>
+  </section>
+</div>
