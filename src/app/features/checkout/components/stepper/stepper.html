@@ -9,9 +9,10 @@
         >
           <span
             class="flex size-6 shrink-0 items-center justify-center rounded-full text-[0.65rem] font-semibold md:size-7 md:text-xs"
-            [class.bg-success]="statusOf(item.id) === 'completed'"
-            [class.text-surface]="statusOf(item.id) === 'completed' || statusOf(item.id) === 'current'"
+            [class.bg-success-soft]="statusOf(item.id) === 'completed'"
+            [class.text-success-ink]="statusOf(item.id) === 'completed'"
             [class.bg-brand]="statusOf(item.id) === 'current'"
+            [class.text-surface]="statusOf(item.id) === 'current'"
             [class.bg-surface]="statusOf(item.id) === 'upcoming'"
             [class.text-muted]="statusOf(item.id) === 'upcoming'"
             [class.ring-1]="statusOf(item.id) === 'upcoming'"

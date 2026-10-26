@@ -6,5 +6,6 @@ import { LucideLock } from '@lucide/angular';
   selector: 'app-header',
   imports: [NgOptimizedImage, LucideLock],
   templateUrl: './header.html',
+  host: { class: 'block shrink-0' },
 })
 export class Header {}

@@ -25,5 +25,9 @@ export const cardFormSchema = schema<CardFormValue>((card) => {
       : { kind: 'expiry', message: 'Cartão vencido.' },
   );
 
-  pattern(card.cvv, /^\d{3,4}$/, { message: 'Use 3 ou 4 dígitos.' });
+  validate(card.cvv, ({ value }) =>
+    /^\d{3,4}$/.test(value())
+      ? undefined
+      : { kind: 'cvv', message: 'Use 3 ou 4 dígitos.' },
+  );
 });

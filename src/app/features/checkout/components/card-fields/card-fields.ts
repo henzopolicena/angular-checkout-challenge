@@ -1,7 +1,7 @@
 import { NgOptimizedImage } from '@angular/common';
 import { Component, input } from '@angular/core';
 import { FormField, type FieldTree } from '@angular/forms/signals';
-import { LucideCheck } from '@lucide/angular';
+import { LucideCheck, LucideCircleAlert } from '@lucide/angular';
 
 import { formatCardNumber, formatCvv, formatExpiry } from '@shared/utils/card';
 
@@ -15,7 +15,7 @@ const MASK = {
 
 @Component({
   selector: 'app-card-fields',
-  imports: [NgOptimizedImage, FormField, LucideCheck],
+  imports: [NgOptimizedImage, FormField, LucideCheck, LucideCircleAlert],
   templateUrl: './card-fields.html',
   host: { class: 'block' },
 })
@@ -26,8 +26,7 @@ export class CardFields {
   readonly brandSrc = input<string | null>(null);
 
   protected invalid(name: keyof CardFormValue): boolean {
-    const field = this.cardForm()[name]();
-    return field.touched() && field.invalid();
+    return this.revealed() && this.cardForm()[name]().invalid();
   }
 
   protected message(name: keyof CardFormValue): string {
@@ -35,11 +34,15 @@ export class CardFields {
   }
 
   protected tone(name: keyof CardFormValue): 'invalid' | 'valid' | undefined {
-    const field = this.cardForm()[name]();
-    if (!field.touched()) {
+    if (!this.revealed()) {
       return undefined;
     }
-    return field.invalid() ? 'invalid' : 'valid';
+    return this.cardForm()[name]().invalid() ? 'invalid' : 'valid';
+  }
+
+  private revealed(): boolean {
+    const root = this.cardForm()();
+    return root.touched() || root.dirty();
   }
 
   protected mask(name: keyof typeof MASK): void {

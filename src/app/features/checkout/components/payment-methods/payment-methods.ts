@@ -1,12 +1,11 @@
-import { NgOptimizedImage } from '@angular/common';
 import { Component, input, output } from '@angular/core';
-import { LucideCreditCard, LucideWallet } from '@lucide/angular';
+import { LucideCreditCard, LucideWalletCards } from '@lucide/angular';
 
 import { PAYMENT_METHOD_LABEL, type PaymentMethod } from '@shared/models/checkout.model';
 
 @Component({
   selector: 'app-payment-methods',
-  imports: [NgOptimizedImage, LucideCreditCard, LucideWallet],
+  imports: [LucideCreditCard, LucideWalletCards],
   templateUrl: './payment-methods.html',
   host: { class: 'block' },
 })

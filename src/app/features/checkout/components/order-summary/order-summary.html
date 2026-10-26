@@ -1,8 +1,8 @@
 <aside class="rounded-2xl border border-line bg-surface p-5 shadow-sm md:p-6">
-  <h2 class="text-sm font-semibold text-ink">Resumo do pedido</h2>
+  <h2 class="text-base font-medium text-ink">Resumo do pedido</h2>
 
   <div class="mt-4 flex items-start gap-3">
-    <img ngSrc="nexo-mark.svg" width="40" height="40" alt="" class="size-10 rounded-mark" />
+    <img ngSrc="nexo-pro-mark.svg" width="40" height="40" alt="" class="size-10 rounded-mark" />
     <div>
       <p class="font-semibold text-ink">{{ catalog.name }}</p>
       <p class="text-xs text-muted">{{ catalog.billing }} · {{ catalog.seats }} usuário</p>
@@ -35,17 +35,17 @@
     </div>
     <div class="flex items-baseline justify-between border-t border-line pt-3">
       <dt class="font-semibold text-ink">Total hoje</dt>
-      <dd class="text-[22px] font-black text-ink">{{ total }}</dd>
+      <dd class="text-[22px] font-bold text-ink">{{ total }}</dd>
     </div>
   </dl>
 
   <p class="mt-3 text-xs text-muted">Renovação mensal. Cancele quando quiser, sem taxas adicionais.</p>
 </aside>
 
-<p class="mt-5 flex items-start gap-2 text-xs text-ink">
+<p class="mt-5 hidden items-start gap-2 text-xs text-ink md:flex">
   <svg lucideShield class="mt-0.5 size-4 shrink-0 text-brand" [size]="16" aria-hidden="true"></svg>
   <span>
     <strong class="font-semibold">Seus dados estão protegidos.</strong>
-    Pagamento criptografado. Não armazenamos os dados do cartão.
+    <span class="mt-0.5 block">Pagamento criptografado. Não armazenamos os dados do cartão.</span>
   </span>
 </p>

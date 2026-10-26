@@ -134,6 +134,16 @@ As telas de referência estão em [`public/design/`](public/design/).
 - [`docs/decisions.md`](docs/decisions.md) — decisões de stack e organização.
 - [`docs/roadmap.md`](docs/roadmap.md) — marcos de desenvolvimento.
 
+## Decisões e escopo
+
+- **Tailwind CSS em vez de Bootstrap.** O desafio pede Tailwind ou Bootstrap. Tailwind foi escolhido para controlar utilitários e tokens (`@theme` em `src/styles.css`) e reproduzir o layout de `public/design/` sem um kit de componentes.
+- **Signals em vez de NgRx.** O estado deste checkout é pequeno e local ao funil (`idle | processing | success | error`). Signals no `CheckoutStore` bastam; NgRx acrescentaria complexidade sem necessidade.
+- **Sem gateway nem backend.** O desafio pede uma experiência de checkout no frontend. O pagamento é simulado no `PaymentSimulator` (atraso de ~1.200 ms, cartões de teste determinísticos). Não há cobrança real.
+- **Sem testes automatizados.** O escopo acordado é verificação manual (matriz da especificação, acessibilidade, console e build de produção). `npm test` e `tsconfig.spec.json` são resíduo do CLI e não fazem parte da validação.
+- **Sem persistência de dados sensíveis.** Número completo do cartão e CVV não entram no store, em `localStorage`/`sessionStorage`, rotas ou logs. Só meio, bandeira, últimos 4 dígitos e status ficam em memória, para limitar exposição e manter o fluxo previsível.
+
+O detalhamento está em [`docs/decisions.md`](docs/decisions.md).
+
 ## Limitações
 
 - Não há gateway, backend, autenticação, banco nem cobrança real.

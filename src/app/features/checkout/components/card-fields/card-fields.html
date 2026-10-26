@@ -13,19 +13,29 @@
           }
         }
       </div>
-      <input
-        id="card-number"
-        class="h-11 w-full rounded-lg border border-line bg-surface px-3 text-sm text-ink outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand data-[tone=invalid]:border-danger data-[tone=invalid]:bg-danger-soft data-[tone=invalid]:text-danger data-[tone=valid]:border-success"
-        type="text"
-        inputmode="numeric"
-        autocomplete="cc-number"
-        placeholder="Número do cartão"
-        [attr.data-tone]="tone('number')"
-        [attr.aria-invalid]="invalid('number')"
-        [attr.aria-describedby]="invalid('number') ? 'card-number-error' : null"
-        [formField]="cardForm().number"
-        (input)="mask('number')"
-      />
+      <div class="relative">
+        <input
+          id="card-number"
+          class="h-11 w-full rounded-lg border border-line bg-surface px-3 pr-10 text-sm text-ink outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand data-[tone=invalid]:border-danger data-[tone=invalid]:bg-danger-soft data-[tone=invalid]:text-danger data-[tone=valid]:border-success"
+          type="text"
+          inputmode="numeric"
+          autocomplete="cc-number"
+          placeholder="4242 4242 4242 4242"
+          [attr.data-tone]="tone('number')"
+          [attr.aria-invalid]="invalid('number')"
+          [attr.aria-describedby]="invalid('number') ? 'card-number-error' : null"
+          [formField]="cardForm().number"
+          (input)="mask('number')"
+        />
+        @if (invalid('number')) {
+          <svg
+            lucideCircleAlert
+            class="pointer-events-none absolute top-1/2 right-3 size-4 -translate-y-1/2 text-danger"
+            [size]="16"
+            aria-hidden="true"
+          ></svg>
+        }
+      </div>
       @if (invalid('number')) {
         <p id="card-number-error" class="mt-1 text-xs text-danger" role="alert">
           {{ message('number') }}
@@ -35,17 +45,27 @@
 
     <div>
       <label class="mb-1.5 block text-sm text-ink" for="card-holder">Nome no cartão</label>
-      <input
-        id="card-holder"
-        class="h-11 w-full rounded-lg border border-line bg-surface px-3 text-sm text-ink uppercase outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand data-[tone=invalid]:border-danger data-[tone=invalid]:bg-danger-soft data-[tone=invalid]:text-danger data-[tone=valid]:border-success"
-        type="text"
-        autocomplete="cc-name"
-        placeholder="Nome completo"
-        [attr.data-tone]="tone('holder')"
-        [attr.aria-invalid]="invalid('holder')"
-        [attr.aria-describedby]="invalid('holder') ? 'card-holder-error' : null"
-        [formField]="cardForm().holder"
-      />
+      <div class="relative">
+        <input
+          id="card-holder"
+          class="h-11 w-full rounded-lg border border-line bg-surface px-3 pr-10 text-sm text-ink uppercase outline-none placeholder:normal-case focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand data-[tone=invalid]:border-danger data-[tone=invalid]:bg-danger-soft data-[tone=invalid]:text-danger data-[tone=valid]:border-success"
+          type="text"
+          autocomplete="cc-name"
+          placeholder="Nome completo"
+          [attr.data-tone]="tone('holder')"
+          [attr.aria-invalid]="invalid('holder')"
+          [attr.aria-describedby]="invalid('holder') ? 'card-holder-error' : null"
+          [formField]="cardForm().holder"
+        />
+        @if (invalid('holder')) {
+          <svg
+            lucideCircleAlert
+            class="pointer-events-none absolute top-1/2 right-3 size-4 -translate-y-1/2 text-danger"
+            [size]="16"
+            aria-hidden="true"
+          ></svg>
+        }
+      </div>
       @if (invalid('holder')) {
         <p id="card-holder-error" class="mt-1 text-xs text-danger" role="alert">
           {{ message('holder') }}
@@ -56,19 +76,29 @@
     <div class="grid grid-cols-2 gap-3">
       <div>
         <label class="mb-1.5 block text-sm text-ink" for="card-expiry">Validade</label>
-        <input
-          id="card-expiry"
-          class="h-11 w-full rounded-lg border border-line bg-surface px-3 text-sm text-ink outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand data-[tone=invalid]:border-danger data-[tone=invalid]:bg-danger-soft data-[tone=invalid]:text-danger data-[tone=valid]:border-success"
-          type="text"
-          inputmode="numeric"
-          autocomplete="cc-exp"
-          placeholder="MM/AA"
-          [attr.data-tone]="tone('expiry')"
-          [attr.aria-invalid]="invalid('expiry')"
-          [attr.aria-describedby]="invalid('expiry') ? 'card-expiry-error' : null"
-          [formField]="cardForm().expiry"
-          (input)="mask('expiry')"
-        />
+        <div class="relative">
+          <input
+            id="card-expiry"
+            class="h-11 w-full rounded-lg border border-line bg-surface px-3 pr-10 text-sm text-ink outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand data-[tone=invalid]:border-danger data-[tone=invalid]:bg-danger-soft data-[tone=invalid]:text-danger data-[tone=valid]:border-success"
+            type="text"
+            inputmode="numeric"
+            autocomplete="cc-exp"
+            placeholder="MM/AA"
+            [attr.data-tone]="tone('expiry')"
+            [attr.aria-invalid]="invalid('expiry')"
+            [attr.aria-describedby]="invalid('expiry') ? 'card-expiry-error' : null"
+            [formField]="cardForm().expiry"
+            (input)="mask('expiry')"
+          />
+          @if (invalid('expiry')) {
+            <svg
+              lucideCircleAlert
+              class="pointer-events-none absolute top-1/2 right-3 size-4 -translate-y-1/2 text-danger"
+              [size]="16"
+              aria-hidden="true"
+            ></svg>
+          }
+        </div>
         @if (invalid('expiry')) {
           <p id="card-expiry-error" class="mt-1 text-xs text-danger" role="alert">
             {{ message('expiry') }}
@@ -77,19 +107,29 @@
       </div>
       <div>
         <label class="mb-1.5 block text-sm text-ink" for="card-cvv">CVV</label>
-        <input
-          id="card-cvv"
-          class="h-11 w-full rounded-lg border border-line bg-surface px-3 text-sm text-ink outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand data-[tone=invalid]:border-danger data-[tone=invalid]:bg-danger-soft data-[tone=invalid]:text-danger data-[tone=valid]:border-success"
-          type="password"
-          inputmode="numeric"
-          autocomplete="cc-csc"
-          placeholder="CVV"
-          [attr.data-tone]="tone('cvv')"
-          [attr.aria-invalid]="invalid('cvv')"
-          [attr.aria-describedby]="invalid('cvv') ? 'card-cvv-error' : null"
-          [formField]="cardForm().cvv"
-          (input)="mask('cvv')"
-        />
+        <div class="relative">
+          <input
+            id="card-cvv"
+            class="h-11 w-full rounded-lg border border-line bg-surface px-3 pr-10 text-sm text-ink outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand data-[tone=invalid]:border-danger data-[tone=invalid]:bg-danger-soft data-[tone=invalid]:text-danger data-[tone=valid]:border-success"
+            type="password"
+            inputmode="numeric"
+            autocomplete="cc-csc"
+            placeholder="CVV"
+            [attr.data-tone]="tone('cvv')"
+            [attr.aria-invalid]="invalid('cvv')"
+            [attr.aria-describedby]="invalid('cvv') ? 'card-cvv-error' : null"
+            [formField]="cardForm().cvv"
+            (input)="mask('cvv')"
+          />
+          @if (invalid('cvv')) {
+            <svg
+              lucideCircleAlert
+              class="pointer-events-none absolute top-1/2 right-3 size-4 -translate-y-1/2 text-danger"
+              [size]="16"
+              aria-hidden="true"
+            ></svg>
+          }
+        </div>
         @if (invalid('cvv')) {
           <p id="card-cvv-error" class="mt-1 text-xs text-danger" role="alert">
             {{ message('cvv') }}
